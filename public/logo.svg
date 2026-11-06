@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 180" fill="none" stroke="#009BE0" stroke-width="11" stroke-linejoin="miter" stroke-linecap="butt">
+  <!-- Center Pillar -->
+  <line x1="50" y1="0" x2="50" y2="134" />
+  <!-- Inner U -->
+  <polyline points="31,28 31,153 69,153 69,28" />
+  <!-- Outer U -->
+  <polyline points="12,56 12,172 88,172 88,56" />
+</svg>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 
 const businesses = [
   {
@@ -50,36 +51,117 @@ const businesses = [
   },
 ];
 
+function BusinessCard({
+  business,
+  index,
+}: {
+  business: (typeof businesses)[number];
+  index: number;
+}) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <Link href={business.link} className="group block">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{
+          duration: 0.6,
+          delay: index * 0.08,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative h-[450px] w-full overflow-hidden"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        {/* Overlays */}
+        <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors duration-500 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10" />
+
+        {/* Image */}
+        <Image
+          src={business.image}
+          alt={business.title}
+          fill
+          className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+        />
+
+        {/* Shimmer line sweep on hover */}
+        <motion.div
+          initial={{ x: "-100%", opacity: 0 }}
+          animate={hovered ? { x: "200%", opacity: [0, 0.6, 0] } : { x: "-100%", opacity: 0 }}
+          transition={hovered ? { duration: 0.7, ease: "easeOut" } : { duration: 0 }}
+          className="absolute inset-y-0 w-1/3 z-30 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(105deg, transparent 20%, rgba(248,246,241,0.18) 50%, transparent 80%)",
+          }}
+        />
+
+        {/* Gold accent bottom border on hover */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={hovered ? { scaleX: 1 } : { scaleX: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          style={{ originX: 0 }}
+          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold z-30"
+        />
+
+        {/* Content */}
+        <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+          <h3 className="font-serif text-3xl text-white mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            {business.title}
+          </h3>
+          <div className="overflow-hidden">
+            <p className="text-white/80 font-light text-sm opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-0 transition-all duration-500 mb-6">
+              {business.description}
+            </p>
+          </div>
+          <div className="flex items-center gap-2 text-gold uppercase tracking-wider text-xs font-semibold opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 delay-100">
+            Explore <ArrowRight className="w-4 h-4" />
+          </div>
+        </div>
+      </motion.div>
+    </Link>
+  );
+}
+
 export function BusinessPortfolio() {
   return (
     <section className="py-24 md:py-32 bg-soft-beige">
       <div className="container mx-auto px-6 md:px-12">
+        {/* Header */}
         <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>
-            <motion.h4 
+            <motion.h4
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               className="text-primary uppercase tracking-widest text-sm font-semibold mb-4"
             >
               Our Portfolio
             </motion.h4>
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal max-w-2xl"
             >
               Diversified Businesses. One Vision.
             </motion.h2>
           </div>
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link 
-              href="/businesses" 
+            <Link
+              href="/businesses"
               className="inline-flex items-center gap-2 uppercase tracking-wider text-sm font-bold text-primary hover:text-gold transition-colors group"
             >
               View All Businesses
@@ -88,41 +170,10 @@ export function BusinessPortfolio() {
           </motion.div>
         </div>
 
+        {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {businesses.map((business, index) => (
-            <Link href={business.link} key={index} className="group block">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="relative h-[450px] w-full overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors duration-500 z-10" />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10" />
-                
-                <Image
-                  src={business.image}
-                  alt={business.title}
-                  fill
-                  className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                />
-
-                <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
-                  <h3 className="font-serif text-3xl text-white mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                    {business.title}
-                  </h3>
-                  <div className="overflow-hidden">
-                    <p className="text-white/80 font-light text-sm opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-0 transition-all duration-500 mb-6">
-                      {business.description}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 text-gold uppercase tracking-wider text-xs font-semibold opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 delay-100">
-                    Explore <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </motion.div>
-            </Link>
+            <BusinessCard key={index} business={business} index={index} />
           ))}
         </div>
       </div>

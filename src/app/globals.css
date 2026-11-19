@@ -1,12 +1,26 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #071A2B;
-  --color-charcoal: #111111;
-  --color-warm-white: #F8F6F1;
-  --color-soft-beige: #E9E1D2;
-  --color-gold: #B89452;
-  --color-muted-grey: #6B7280;
+  --color-primary: #0A192F;
+  --color-primary-light: #1E3A8A;
+  --color-corporate-navy: #0A192F;
+  --color-corporate-blue: #0F2A4A;
+  --color-corporate-slate: #334155;
+  --color-corporate-grey: #64748B;
+  --color-corporate-light: #F8FAFC;
+  --color-accent-blue: #2563EB;
+  --color-accent-blue-hover: #1D4ED8;
+  --color-charcoal: #0F172A;
+  --color-border-slate: #E2E8F0;
+  --color-sustainability-green: #0D9488;
+  --color-sustainability-light: #F0FDFA;
+
+  /* Aliases for seamless utility resolution */
+  --color-gold: #2563EB;
+  --color-gold-hover: #1D4ED8;
+  --color-warm-white: #F8FAFC;
+  --color-soft-beige: #F1F5F9;
+  --color-muted-grey: #64748B;
   
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
@@ -14,7 +28,7 @@
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-float: float 3s ease-in-out infinite;
   --animate-fade-in-up: fadeInUp 0.6s ease-out forwards;
-  --animate-pulse-gold: pulse-gold 2s ease-in-out infinite;
+  --animate-pulse-blue: pulse-blue 2s ease-in-out infinite;
 }
 
 html {
@@ -22,13 +36,18 @@ html {
 }
 
 body {
-  background-color: var(--color-warm-white);
-  color: var(--color-charcoal);
-  font-family: var(--font-sans);
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
+  font-family: var(--font-playfair), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  letter-spacing: -0.015em;
 }
 
 @keyframes shimmer {
@@ -46,9 +65,9 @@ h1, h2, h3, h4, h5, h6 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(184, 148, 82, 0.4); }
-  50% { box-shadow: 0 0 0 8px rgba(184, 148, 82, 0); }
+@keyframes pulse-blue {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
 }
 
 @keyframes grow-width {
@@ -69,6 +88,26 @@ h1, h2, h3, h4, h5, h6 {
   animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.animate-pulse-gold {
-  animation: pulse-gold 2s ease-in-out infinite;
+.animate-pulse-blue {
+  animation: pulse-blue 2s ease-in-out infinite;
+}
+
+/* Corporate Card & Glassmorphism Utilities */
+.corporate-glass {
+  background: rgba(10, 25, 47, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.corporate-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.corporate-card:hover {
+  border-color: #93C5FD;
+  box-shadow: 0 12px 30px -4px rgba(37, 99, 235, 0.12);
+  transform: translateY(-4px);
 }

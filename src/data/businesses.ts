@@ -1,72 +1,91 @@
-export const businessData = {
+export interface BusinessDetail {
+  title: string;
+  subtitle: string;
+  heroImage: string;
+  history: string;
+  capabilities: string;
+  scale: string;
+  geographicalPresence: string;
+  futureOutlook: string;
+  sustainabilityCommitment: string;
+}
+
+export const businessData: Record<string, BusinessDetail> = {
   mining: {
-    title: "Mining",
-    subtitle: "A Legacy Rooted in Natural Resources",
-    heroImage: "/images/hero_mining.png",
-    history: "Mining has been the cornerstone of Jyoti Infrastructure's growth since the 1960s, starting from a single mine in Keonjhar district, Western Odisha.",
-    capabilities: "Advanced open-cast mining, heavy material handling, and sustainable extraction.",
-    scale: "Production volume of approximately 4 million tonnes of iron ore and manganese per annum.",
-    geographicalPresence: "Western Odisha, India.",
-    futureOutlook: "Expanding mining operations with advanced sustainable technologies and focusing on green extraction methods."
+    title: "Sustainable Mining & Natural Resources",
+    subtitle: "Over Six Decades of Responsible Resource Stewardship",
+    heroImage: "/images/realistic/hero_mining.jpg",
+    history: "Mining has been the foundational cornerstone of Jyoti Infrastructure's journey since the 1960s, beginning with open-cast extraction in the mineral-rich Keonjhar district of Western Odisha.",
+    capabilities: "Precision open-cast extraction, high-efficiency heavy material handling, continuous dust suppression mist cannons, bio-fencing, and progressive topsoil conservation.",
+    scale: "Annual extraction capacity exceeding 4 million metric tonnes of high-grade iron ore and manganese.",
+    geographicalPresence: "Western Odisha mining belt, India.",
+    sustainabilityCommitment: "Enforcing zero-effluent discharge, dedicated ecological green-belt reforestation, computerized ambient air quality monitoring, and community healthcare infrastructure in surrounding tribal villages.",
+    futureOutlook: "Deploying electrified haulage machinery, solarized processing plants, and advanced digital geology tools to pioneer carbon-neutral mineral extraction."
   },
   automobile: {
-    title: "Automobile Retail",
-    subtitle: "Driving Mobility Across Odisha",
-    heroImage: "/images/hero_automobile.png",
-    history: "Started in 1996 as a TVS dealer, expanding into a multi-brand powerhouse.",
-    capabilities: "Premium passenger car, two-wheeler, and commercial vehicle dealerships, including sales, service, and spare parts.",
-    scale: "Representing leading global and Indian brands like Maruti Suzuki, Audi, Harley-Davidson, TVS Motors, and Suzuki.",
-    geographicalPresence: "Key locations across Odisha including Bhubaneswar.",
-    futureOutlook: "Focusing on EV integration and expanding premium mobility footprint in the state."
+    title: "Automobile Retail & Clean Mobility",
+    subtitle: "Driving Odisha's Transition to Next-Gen Electric & Hybrid Mobility",
+    heroImage: "/images/realistic/hero_automobile.jpg",
+    history: "Inaugurated in 1996 as a TVS dealership, Jyote Motors has grown into Odisha's most trusted multi-brand automotive powerhouse spanning passenger, commercial, and luxury segments.",
+    capabilities: "3S (Sales, Service, Spares) network, certified high-voltage EV service technicians, fast-charging hubs, and customer mobility finance.",
+    scale: "Exclusive dealership presence representing global leaders: Maruti Suzuki, Audi, Harley-Davidson, TVS Motors, and Suzuki.",
+    geographicalPresence: "Bhubaneswar, Cuttack, and major commercial hubs across Odisha.",
+    sustainabilityCommitment: "Rapidly installing solar-powered EV fast-charging stations across our dealership network and promoting hybrid and battery-electric vehicles to displace urban vehicular emissions.",
+    futureOutlook: "Expanding state-wide EV fast-charging corridors, eco-friendly green workshop certifications, and smart digital mobility platforms."
   },
   "financial-services": {
-    title: "Financial Services",
-    subtitle: "Creating Access to Affordable Finance",
-    heroImage: "/images/hero_financial.png",
-    history: "Strategic investment in Saral Home Finance Limited to promote financial inclusion.",
-    capabilities: "Small-ticket housing loans catered specifically to the lower-middle-income segment.",
-    scale: "Regulated by the National Housing Bank with a growing portfolio of housing finance customers.",
-    geographicalPresence: "Odisha and neighboring regions.",
-    futureOutlook: "Expanding access to affordable housing finance across semi-urban and rural areas."
+    title: "Financial Services & Inclusion",
+    subtitle: "Expanding Access to Affordable & Dignified Green Housing Credit",
+    heroImage: "/images/realistic/hero_financial.jpg",
+    history: "Strategic investment in Saral Home Finance Limited to democratize homeownership and provide accessible credit to underserved socio-economic segments.",
+    capabilities: "Small-ticket housing loans, digital credit appraisal, streamlined doorstep processing, and flexible repayment terms for informal-income earners.",
+    scale: "Regulated by the National Housing Bank (NHB), servicing thousands of families with a high-quality loan portfolio.",
+    geographicalPresence: "Odisha and adjacent semi-urban and rural markets.",
+    sustainabilityCommitment: "Promoting green home micro-loans for rooftop solar installations, rainwater harvesting structures, and energy-efficient building materials for lower-middle-income borrowers.",
+    futureOutlook: "Broadening digital micro-mortgage reach across underserved Tier-2, Tier-3, and rural clusters to foster financial resilience."
   },
   "real-estate": {
-    title: "Real Estate",
-    subtitle: "Building the Foundations of Tomorrow",
-    heroImage: "/images/hero_realestate.png",
-    history: "Diversified investments into commercial and real estate ventures.",
-    capabilities: "Commercial real estate development, property management, and long-term asset creation.",
-    scale: "Diverse commercial ventures across Delhi, Pondicherry, and Bhubaneswar.",
-    geographicalPresence: "Delhi, Pondicherry, Bhubaneswar.",
-    futureOutlook: "Continued acquisition and development of premium commercial and tangible assets."
+    title: "Commercial Real Estate & Infrastructure",
+    subtitle: "Building Enduring, Energy-Efficient Tangible Assets",
+    heroImage: "/images/realistic/hero_realestate.jpg",
+    history: "Strategic development and long-term asset management of premium commercial properties across prime metropolitan and regional growth corridors.",
+    capabilities: "Grade-A commercial construction, energy-efficient building envelopes, modern facility management, and high-yield tangible asset creation.",
+    scale: "Diverse commercial portfolio spanning Delhi NCR, Pondicherry, and Bhubaneswar.",
+    geographicalPresence: "Delhi NCR, Pondicherry, Bhubaneswar.",
+    sustainabilityCommitment: "Designing all new commercial developments to meet IGBC/LEED green building standards with solar rooftops, energy-efficient HVAC, and rainwater harvesting cisterns.",
+    futureOutlook: "Expanding premium sustainable commercial business parks and mixed-use commercial destinations tailored to modern corporate tenants."
   },
   "renewable-energy": {
-    title: "Renewable Energy",
-    subtitle: "Powering a Sustainable Future",
-    heroImage: "/images/hero_renewable.png",
-    history: "Entered the renewable sector in 2017 with a major SECI partnership.",
-    capabilities: "Solar power plant development and wind energy portfolio management.",
-    scale: "10 MW Greenfield Solar Power Project and a 65 MW Wind Energy Portfolio.",
-    geographicalPresence: "Patnagarh, District Bolangir, Odisha and other regions.",
-    futureOutlook: "Significant expansion in renewable capacity to support India's clean energy transition."
+    title: "Renewable Clean Energy",
+    subtitle: "75 MW Solar and Wind Portfolio Powering India's Decarbonization",
+    heroImage: "/images/realistic/hero_renewable.jpg",
+    history: "Ventured decisively into the green energy sector in 2017 through a landmark 25-year Power Purchase Agreement (PPA) with the Solar Energy Corporation of India (SECI).",
+    capabilities: "Utility-scale ground-mounted solar plant engineering, high-uptime wind turbine generation, and smart grid synchronization.",
+    scale: "10 MW Greenfield Solar Power Project at Patnagarh, Bolangir, alongside a 65 MW Wind Energy Portfolio, offsetting 120,000+ metric tonnes of CO₂ annually.",
+    geographicalPresence: "Patnagarh (Bolangir District, Odisha) and key windy corridors across India.",
+    sustainabilityCommitment: "100% clean, zero-emission electricity generation displacing fossil fuel reliance while generating green jobs in rural Bolangir.",
+    futureOutlook: "Targeting aggressive expansion of utility solar capacity, battery energy storage systems (BESS), and green hydrogen pilot studies."
   },
   aviation: {
-    title: "Aviation",
-    subtitle: "Connecting Destinations Through Private Aviation",
-    heroImage: "/images/hero_aviation.png",
-    history: "Strategic investment into the private aviation and charter flight sector.",
-    capabilities: "Aircraft acquisition and chartered flight services.",
-    scale: "Growing fleet of private aircraft for executive travel.",
-    geographicalPresence: "Pan-India operations.",
-    futureOutlook: "Expanding executive charter services and premium aviation solutions."
+    title: "Executive Aviation & Connectivity",
+    subtitle: "Connecting Strategic Hubs Through High-Reliability Private Aviation",
+    heroImage: "/images/realistic/hero_aviation.jpg",
+    history: "Strategic entry into executive aviation to overcome regional connectivity gaps and empower industrial leaders with flexible, time-critical travel.",
+    capabilities: "Aircraft acquisition, charter fleet management, executive VIP flight operations, and round-the-clock DGCA compliance.",
+    scale: "Growing fleet of private aircraft serving corporate, industrial, and high-priority travel requirements across India.",
+    geographicalPresence: "Pan-India flight operations with key transit bases in Bhubaneswar and Delhi.",
+    sustainabilityCommitment: "Optimizing flight trajectories to reduce jet fuel burn, enforcing strict avionics maintenance for fuel efficiency, and exploring Sustainable Aviation Fuel (SAF) partnerships.",
+    futureOutlook: "Upgrading fleet with fuel-efficient next-generation turboprops and light jets to enhance inter-city industrial connectivity."
   },
   hospitality: {
-    title: "Hospitality",
-    subtitle: "A New Landmark on the Coast of Puri",
-    heroImage: "/images/hero_hospitality.png",
-    history: "Commenced commercial operations in December 2024 with the Taj Puri Resort & Spa.",
-    capabilities: "Development and ownership of ultra-luxury hotel properties.",
-    scale: "90-key luxury beachside resort operated by Indian Hotels Company Limited (IHCL).",
-    geographicalPresence: "Sipasarubali, Puri, Odisha.",
-    futureOutlook: "Developing further premium hospitality assets in key tourist and business destinations."
+    title: "Luxury Sustainable Hospitality",
+    subtitle: "Taj Puri Resort & Spa: Coastal Elegance on the Bay of Bengal",
+    heroImage: "/images/realistic/hero_hospitality.jpg",
+    history: "Developed under Pravat Hospitality Private Limited, commencing commercial operations on 24 December 2024 with the iconic Taj brand.",
+    capabilities: "Ultra-luxury beachfront resort ownership, operated in partnership with Indian Hotels Company Limited (IHCL, a Tata Enterprise).",
+    scale: "90-key luxury oceanfront resort featuring bespoke suites, wellness spa, signature coastal dining, and premier banquet lawns.",
+    geographicalPresence: "Plot No: 545/1546, Sipasarubali, Puri, Odisha – 752001.",
+    sustainabilityCommitment: "Eco-sensitive coastal construction, 100% wastewater recycling via advanced on-site STP, elimination of single-use plastics, and sourcing local Odia handcrafted textiles and produce.",
+    futureOutlook: "Expanding our luxury and heritage hospitality portfolio across Eastern India's most celebrated cultural and coastal destinations."
   }
 };

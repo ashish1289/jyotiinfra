@@ -60,11 +60,14 @@ export function Header() {
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  "text-sm font-medium tracking-wider uppercase transition-colors hover:text-gold",
-                  "text-white/90"
+                  "text-sm font-medium tracking-wider uppercase transition-colors hover:text-blue-400 relative py-1",
+                  link.name === "Sustainability" ? "text-emerald-400 font-semibold" : "text-slate-100"
                 )}
               >
                 {link.name}
+                {link.name === "Sustainability" && (
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 ml-1.5 align-middle animate-pulse" />
+                )}
               </Link>
             ))}
           </nav>
@@ -73,8 +76,8 @@ export function Header() {
             <Link
               href="/businesses"
               className={cn(
-                "inline-flex items-center justify-center px-6 py-2.5 text-sm font-medium uppercase tracking-wider transition-all duration-300",
-                "bg-gold text-primary hover:bg-white hover:text-primary"
+                "inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold uppercase tracking-wider transition-all duration-300",
+                "bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-900/30 border border-blue-500"
               )}
             >
               Explore Our Businesses
@@ -98,7 +101,7 @@ export function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-40 bg-primary flex flex-col justify-center items-center"
+            className="fixed inset-0 z-40 bg-slate-950/98 backdrop-blur-xl flex flex-col justify-center items-center"
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link) => (
@@ -106,7 +109,7 @@ export function Header() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-2xl font-serif text-white hover:text-gold transition-colors"
+                  className="text-2xl font-serif text-white hover:text-blue-400 transition-colors"
                 >
                   {link.name}
                 </Link>
@@ -114,7 +117,7 @@ export function Header() {
               <Link
                 href="/businesses"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-8 inline-flex items-center justify-center px-8 py-4 text-base font-medium uppercase tracking-wider bg-gold text-primary hover:bg-white hover:text-primary transition-colors"
+                className="mt-8 inline-flex items-center justify-center px-8 py-4 text-base font-semibold uppercase tracking-wider bg-blue-600 text-white hover:bg-blue-700 transition-colors"
               >
                 Explore Our Businesses
               </Link>

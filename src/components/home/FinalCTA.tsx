@@ -2,10 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { useRef, useState } from "react";
+import { ArrowRight, Leaf } from "lucide-react";
 
-// Particle dot for the grid background
 interface Particle {
   x: number;
   y: number;
@@ -14,54 +12,50 @@ interface Particle {
   size: number;
 }
 
-const PARTICLE_COUNT = 36;
-
-function seededRandom(seed: number) {
-  const x = Math.sin(seed + 1) * 10000;
-  return x - Math.floor(x);
-}
-
-const PARTICLES: Particle[] = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
-  x: seededRandom(i * 3) * 100,
-  y: seededRandom(i * 3 + 1) * 100,
-  opacity: 0.08 + seededRandom(i * 3 + 2) * 0.18,
-  speed: 0.3 + seededRandom(i * 3 + 3) * 0.7,
-  size: 1.5 + seededRandom(i * 3 + 4) * 2.5,
-}));
+const STATIC_PARTICLES: Particle[] = [
+  { x: 12, y: 18, opacity: 0.15, speed: 0.5, size: 2.5 },
+  { x: 85, y: 14, opacity: 0.22, speed: 0.7, size: 3 },
+  { x: 45, y: 22, opacity: 0.18, speed: 0.4, size: 2 },
+  { x: 92, y: 45, opacity: 0.25, speed: 0.6, size: 3.5 },
+  { x: 8,  y: 65, opacity: 0.16, speed: 0.5, size: 2 },
+  { x: 30, y: 78, opacity: 0.22, speed: 0.8, size: 4 },
+  { x: 74, y: 82, opacity: 0.18, speed: 0.6, size: 3 },
+  { x: 62, y: 35, opacity: 0.20, speed: 0.5, size: 2 },
+];
 
 function ParticleBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
       {/* Subtle grid */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.04]" xmlns="http://www.w3.org/2000/svg">
+      <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="cta-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#B89452" strokeWidth="1" />
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#60A5FA" strokeWidth="0.8" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#cta-grid)" />
       </svg>
 
       {/* Floating dots */}
-      {PARTICLES.map((p, i) => (
+      {STATIC_PARTICLES.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-gold"
+          className="absolute rounded-full bg-blue-400"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
-            width: p.size,
-            height: p.size,
+            width: `${p.size}px`,
+            height: `${p.size}px`,
             opacity: p.opacity,
           }}
           animate={{
-            y: [0, -(12 + i % 8), 0],
-            opacity: [p.opacity, p.opacity * 2.5, p.opacity],
+            y: [0, -(12 + (i % 8)), 0],
+            opacity: [p.opacity, p.opacity * 2, p.opacity],
           }}
           transition={{
             duration: 3 + p.speed * 3,
             repeat: Infinity,
-            delay: i * 0.18,
+            delay: i * 0.2,
             ease: "easeInOut",
           }}
         />
@@ -72,128 +66,69 @@ function ParticleBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(184,148,82,0.07) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(37,99,235,0.15) 0%, transparent 70%)",
         }}
       />
     </div>
   );
 }
 
-function ShimmerButton({ href, children }: { href: string; children: React.ReactNode }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <Link
-      href={href}
-      className="relative inline-flex items-center gap-3 px-10 py-5 bg-gold text-primary overflow-hidden uppercase tracking-wider text-sm font-semibold group"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Shimmer sweep */}
-      <motion.div
-        initial={{ x: "-120%" }}
-        animate={hovered ? { x: "220%" } : { x: "-120%" }}
-        transition={hovered ? { duration: 0.6, ease: "easeOut" } : { duration: 0 }}
-        className="absolute inset-y-0 w-1/2 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.35) 50%, transparent 80%)",
-        }}
-      />
-
-      {/* Hover bg */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={hovered ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        style={{ originX: 0 }}
-        className="absolute inset-0 bg-white pointer-events-none"
-      />
-
-      <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
-        {children}
-      </span>
-      <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-    </Link>
-  );
-}
-
 export function FinalCTA() {
   return (
-    <section className="py-24 md:py-32 bg-charcoal text-white text-center px-6 border-b border-white/10 relative overflow-hidden">
+    <section className="py-24 md:py-36 bg-[#0A192F] text-white text-center px-6 relative overflow-hidden border-t border-slate-800">
       <ParticleBackground />
 
       <div className="container mx-auto max-w-4xl relative z-10">
-        {/* Headline with animated gold underline on key text */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium mb-8 leading-tight">
-            Built on{" "}
-            <span className="relative inline-block">
-              Legacy.
-              <motion.span
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-                style={{ originX: 0 }}
-                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold block"
-              />
-            </span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-emerald-400 text-sm font-semibold tracking-wider uppercase mb-8 shadow-md">
+            <Leaf className="w-4 h-4 text-emerald-400" />
+            <span>Sustainable Industrial Infrastructure</span>
+          </div>
+
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white">
+            Built on <span className="text-blue-400">Legacy.</span>
             <br />
-            Driven by{" "}
-            <span className="relative inline-block">
-              Vision.
-              <motion.span
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                style={{ originX: 0 }}
-                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold block"
-              />
-            </span>
+            Driven by <span className="text-blue-400">Vision.</span>
             <br />
-            Focused on the{" "}
-            <span className="relative inline-block">
-              Future.
-              <motion.span
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 1.0, ease: "easeOut" }}
-                style={{ originX: 0 }}
-                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gold block"
-              />
-            </span>
+            Shaping a <span className="text-emerald-400 italic">Sustainable Future.</span>
           </h2>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg md:text-xl text-white/70 font-light mb-12 max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg md:text-2xl text-slate-300 font-normal mb-12 max-w-3xl mx-auto leading-relaxed"
           >
-            From natural resources to renewable energy, mobility, finance, real
-            estate, aviation and hospitality, Jyoti Infrastructure continues to
-            build businesses and tangible assets designed for long-term value
-            creation.
+            From responsible mineral resources to 75 MW renewable clean power, electric mobility, financial inclusion, and green luxury hospitality, Jyoti Infrastructure is building tangible assets designed for multigenerational value.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-5"
           >
-            <ShimmerButton href="/businesses">
-              Explore Our Businesses
-            </ShimmerButton>
+            <Link
+              href="/businesses"
+              className="px-9 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base rounded shadow-lg shadow-blue-600/30 uppercase tracking-wider transition-all flex items-center justify-center gap-3 w-full sm:w-auto group"
+            >
+              <span>Explore Our Businesses</span>
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform" />
+            </Link>
+
+            <Link
+              href="/contact"
+              className="px-9 py-4 bg-slate-800/90 hover:bg-slate-700 text-white font-semibold text-base border border-slate-600/80 rounded uppercase tracking-wider transition-all flex items-center justify-center gap-3 w-full sm:w-auto"
+            >
+              <span>Connect With Us</span>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

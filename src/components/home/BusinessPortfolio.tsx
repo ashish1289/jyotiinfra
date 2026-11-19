@@ -3,51 +3,72 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Leaf, Shield, Zap, Car, Building2, Plane, Hotel } from "lucide-react";
 import { useState } from "react";
 
 const businesses = [
   {
-    title: "Mining",
-    description: "Building on decades of experience in mining and natural resources.",
-    image: "/images/hero_mining.png",
+    title: "Sustainable Mining",
+    tag: "Responsible Extraction",
+    description: "Decades of open-cast mining in Keonjhar with progressive land reclamation, water recycling, and 4M+ tonnes annual production.",
+    image: "/images/realistic/hero_mining.jpg",
     link: "/businesses/mining",
-  },
-  {
-    title: "Automobile",
-    description: "Dealership operations representing leading global and Indian brands.",
-    image: "/images/hero_automobile.png",
-    link: "/businesses/automobile",
-  },
-  {
-    title: "Financial Services",
-    description: "Investment in housing finance serving the lower-middle-income segment.",
-    image: "/images/hero_financial.png",
-    link: "/businesses/financial-services",
-  },
-  {
-    title: "Real Estate",
-    description: "Commercial and real estate investments across key locations.",
-    image: "/images/hero_realestate.png",
-    link: "/businesses/real-estate",
+    icon: Shield,
+    esgNote: "Bio-fencing & dust suppression",
   },
   {
     title: "Renewable Energy",
-    description: "Solar and wind energy investments contributing to India's clean energy transition.",
-    image: "/images/hero_renewable.png",
+    tag: "Clean Energy Transition",
+    description: "10 MW SECI Solar project in Patnagarh and a 65 MW Wind portfolio offsetting over 120,000 metric tonnes of CO₂ annually.",
+    image: "/images/realistic/hero_renewable.jpg",
     link: "/businesses/renewable-energy",
+    icon: Zap,
+    esgNote: "75 MW total clean capacity",
   },
   {
-    title: "Aviation",
-    description: "Investment in private aviation and charter flight services.",
-    image: "/images/hero_aviation.png",
-    link: "/businesses/aviation",
+    title: "Automobile Retail & EV",
+    tag: "Next-Gen Mobility",
+    description: "Odisha’s premier automotive dealer group representing Maruti Suzuki, Audi, Harley-Davidson, and TVS with growing EV charging setups.",
+    image: "/images/realistic/hero_automobile.jpg",
+    link: "/businesses/automobile",
+    icon: Car,
+    esgNote: "Active EV transition focus",
   },
   {
-    title: "Hospitality",
-    description: "Premium hospitality assets including the Taj Puri Resort & Spa.",
-    image: "/images/hero_hospitality.png",
+    title: "Luxury Hospitality",
+    tag: "Eco-Conscious Tourism",
+    description: "Taj Puri Resort & Spa: 90-key ultra-luxury beachside landmark operated with IHCL, adhering to sustainable coastal conservation standards.",
+    image: "/images/realistic/hero_hospitality.jpg",
     link: "/businesses/hospitality",
+    icon: Hotel,
+    esgNote: "Plastic-neutral operations",
+  },
+  {
+    title: "Financial Services",
+    tag: "Social & Financial Inclusion",
+    description: "Saral Home Finance: NHB-regulated small-ticket housing finance empowering lower-middle-income families with dignified shelter credit.",
+    image: "/images/realistic/hero_financial.jpg",
+    link: "/businesses/financial-services",
+    icon: Shield,
+    esgNote: "Empowering semi-urban communities",
+  },
+  {
+    title: "Commercial Real Estate",
+    tag: "Tangible Asset Infrastructure",
+    description: "Strategic commercial and mixed-use tangible assets across Delhi, Pondicherry, and Bhubaneswar built to high energy-efficiency standards.",
+    image: "/images/realistic/hero_realestate.jpg",
+    link: "/businesses/real-estate",
+    icon: Building2,
+    esgNote: "Long-term green asset creation",
+  },
+  {
+    title: "Private Aviation",
+    tag: "Pan-India Connectivity",
+    description: "High-standard executive charter flights and aircraft fleet management delivering efficient and dependable pan-India business travel.",
+    image: "/images/realistic/hero_aviation.jpg",
+    link: "/businesses/aviation",
+    icon: Plane,
+    esgNote: "Optimized route flight efficiency",
   },
 ];
 
@@ -59,9 +80,10 @@ function BusinessCard({
   index: number;
 }) {
   const [hovered, setHovered] = useState(false);
+  const IconComponent = business.icon;
 
   return (
-    <Link href={business.link} className="group block">
+    <Link href={business.link} className="group block h-full">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -71,55 +93,66 @@ function BusinessCard({
           delay: index * 0.08,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className="relative h-[450px] w-full overflow-hidden"
+        className="relative h-[480px] w-full overflow-hidden rounded-xl bg-slate-900 border border-slate-700/60 shadow-lg group-hover:border-blue-500/80 transition-all duration-500 flex flex-col justify-end"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Overlays */}
-        <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/40 transition-colors duration-500 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent z-10" />
-
-        {/* Image */}
+        {/* Realistic Image */}
         <Image
           src={business.image}
           alt={business.title}
           fill
-          className="object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
+          className="object-cover transform group-hover:scale-108 transition-transform duration-700 ease-out"
         />
 
-        {/* Shimmer line sweep on hover */}
+        {/* Corporate Blue & Slate Gradient Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A192F] via-[#0A192F]/60 to-transparent z-10" />
+        <div className="absolute inset-0 bg-[#0A192F]/20 group-hover:bg-[#0A192F]/40 transition-colors duration-500 z-10" />
+
+        {/* Top Tag & ESG Badge */}
+        <div className="absolute top-5 left-5 right-5 z-20 flex items-center justify-between gap-2">
+          <span className="px-3 py-1 rounded bg-slate-900/90 backdrop-blur-md border border-slate-700 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+            {business.tag}
+          </span>
+          <span className="px-2.5 py-1 rounded bg-emerald-950/80 backdrop-blur-md border border-emerald-800/80 text-emerald-300 text-xs font-medium flex items-center gap-1">
+            <Leaf className="w-3 h-3 text-emerald-400" />
+            <span className="hidden sm:inline">{business.esgNote}</span>
+          </span>
+        </div>
+
+        {/* Shimmer sweep on hover */}
         <motion.div
           initial={{ x: "-100%", opacity: 0 }}
-          animate={hovered ? { x: "200%", opacity: [0, 0.6, 0] } : { x: "-100%", opacity: 0 }}
+          animate={hovered ? { x: "200%", opacity: [0, 0.4, 0] } : { x: "-100%", opacity: 0 }}
           transition={hovered ? { duration: 0.7, ease: "easeOut" } : { duration: 0 }}
           className="absolute inset-y-0 w-1/3 z-30 pointer-events-none"
           style={{
             background:
-              "linear-gradient(105deg, transparent 20%, rgba(248,246,241,0.18) 50%, transparent 80%)",
+              "linear-gradient(105deg, transparent 20%, rgba(96,165,250,0.3) 50%, transparent 80%)",
           }}
         />
 
-        {/* Gold accent bottom border on hover */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={hovered ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-          style={{ originX: 0 }}
-          className="absolute bottom-0 left-0 right-0 h-0.5 bg-gold z-30"
-        />
+        {/* Blue accent bottom border */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-slate-800 group-hover:bg-blue-500 transition-colors duration-300 z-30" />
 
-        {/* Content */}
-        <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
-          <h3 className="font-serif text-3xl text-white mb-3 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-            {business.title}
-          </h3>
-          <div className="overflow-hidden">
-            <p className="text-white/80 font-light text-sm opacity-0 group-hover:opacity-100 translate-y-8 group-hover:translate-y-0 transition-all duration-500 mb-6">
-              {business.description}
-            </p>
+        {/* Card Content with larger, readable typography */}
+        <div className="relative z-20 p-7 space-y-3">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded bg-blue-600/20 text-blue-400 border border-blue-500/30">
+              <IconComponent className="w-5 h-5" />
+            </div>
+            <h3 className="font-serif text-2xl md:text-3xl font-bold text-white group-hover:text-blue-300 transition-colors duration-300">
+              {business.title}
+            </h3>
           </div>
-          <div className="flex items-center gap-2 text-gold uppercase tracking-wider text-xs font-semibold opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 delay-100">
-            Explore <ArrowRight className="w-4 h-4" />
+
+          <p className="text-slate-300 font-normal text-sm md:text-base leading-relaxed line-clamp-3">
+            {business.description}
+          </p>
+
+          <div className="pt-2 flex items-center gap-2 text-blue-400 uppercase tracking-wider text-xs md:text-sm font-semibold group-hover:text-white transition-colors duration-300">
+            <span>Explore Vertical</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform duration-300" />
           </div>
         </div>
       </motion.div>
@@ -129,28 +162,28 @@ function BusinessCard({
 
 export function BusinessPortfolio() {
   return (
-    <section className="py-24 md:py-32 bg-soft-beige">
+    <section className="py-24 md:py-32 bg-slate-100 border-b border-slate-200">
       <div className="container mx-auto px-6 md:px-12">
         {/* Header */}
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
+        <div className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>
             <motion.h4
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-primary uppercase tracking-widest text-sm font-semibold mb-4"
+              className="text-blue-600 uppercase tracking-widest text-sm font-bold mb-3"
             >
-              Our Portfolio
+              Diversified Group Sectors
             </motion.h4>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl font-medium text-charcoal max-w-2xl"
+              className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 max-w-2xl"
             >
-              Diversified Businesses. One Vision.
+              Seven Robust Verticals. United by Sustainable Value.
             </motion.h2>
           </div>
 
@@ -162,10 +195,10 @@ export function BusinessPortfolio() {
           >
             <Link
               href="/businesses"
-              className="inline-flex items-center gap-2 uppercase tracking-wider text-sm font-bold text-primary hover:text-gold transition-colors group"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm font-semibold uppercase tracking-wider transition-all shadow-md group"
             >
-              View All Businesses
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span>View All Businesses</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </motion.div>
         </div>

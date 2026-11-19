@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { BarChart3 } from "lucide-react";
 
 function Counter({
   from,
@@ -47,61 +48,34 @@ function Counter({
 }
 
 const stats = [
-  { value: 1960, suffix: "s", label: "Mining legacy begins", text: "1960s" },
-  { value: 2008, label: "Jyoti Infrastructure established", text: "2008" },
-  { value: 4, suffix: "M+", label: "Tonnes annual ore production", text: "4M+" },
-  { value: 10, suffix: " MW", label: "Solar Power Project", text: "10 MW" },
-  { value: 65, suffix: " MW", label: "Wind Energy Portfolio", text: "65 MW" },
-  { value: 90, label: "Luxury Rooms & Suites", text: "90" },
-  { value: 25, suffix: "+", label: "Years of leadership experience", text: "25+" },
+  { value: 1960, suffix: "s", label: "Mining Legacy Begins", sub: "Western Odisha" },
+  { value: 4, suffix: "M+", label: "Tonnes Annual Ore Capacity", sub: "Environmentally Certified" },
+  { value: 75, suffix: " MW", label: "Clean Power Portfolio", sub: "10 MW Solar + 65 MW Wind" },
+  { value: 120, suffix: "k+ MT", label: "Annual CO₂ Offset", sub: "Clean Energy Impact" },
+  { value: 90, label: "Luxury Suites & Rooms", sub: "Taj Puri Resort & Spa" },
+  { value: 25, suffix: "+", label: "Years Leadership Tenor", sub: "Proven Governance" },
+  { value: 5, suffix: "+", label: "Global Automobile Brands", sub: "Odisha Mobility Hub" },
+  { value: 2008, label: "JIPL Inception", sub: "Asset Creation Engine" },
 ];
-
-// Diagonal decorative SVG lines
-function DiagonalLines() {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full pointer-events-none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden
-    >
-      {[...Array(8)].map((_, i) => (
-        <motion.line
-          key={i}
-          x1={`${i * 14}%`}
-          y1="0%"
-          x2={`${i * 14 + 30}%`}
-          y2="100%"
-          stroke="#B89452"
-          strokeWidth="0.5"
-          strokeOpacity="0.07"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, delay: i * 0.12, ease: "easeOut" }}
-        />
-      ))}
-    </svg>
-  );
-}
 
 export function KeyNumbers() {
   return (
-    <section className="py-24 md:py-32 bg-primary text-white relative overflow-hidden">
+    <section className="py-24 md:py-32 bg-[#0A192F] text-white relative overflow-hidden border-b border-slate-800">
       {/* Grid background */}
-      <div className="absolute inset-0 opacity-5">
+      <div className="absolute inset-0 opacity-10">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern
               id="grid-kn"
-              width="40"
-              height="40"
+              width="50"
+              height="50"
               patternUnits="userSpaceOnUse"
             >
               <path
-                d="M 40 0 L 0 0 0 40"
+                d="M 50 0 L 0 0 0 50"
                 fill="none"
-                stroke="white"
-                strokeWidth="1"
+                stroke="#60A5FA"
+                strokeWidth="0.8"
               />
             </pattern>
           </defs>
@@ -109,107 +83,83 @@ export function KeyNumbers() {
         </svg>
       </div>
 
-      {/* Diagonal decorative lines */}
-      <DiagonalLines />
-
-      {/* Radial gold glow — center */}
+      {/* Corporate Blue Radial Glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 60% 40% at 50% 60%, rgba(184,148,82,0.08) 0%, transparent 70%)",
+            "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(37,99,235,0.12) 0%, transparent 70%)",
         }}
       />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
         <div className="text-center mb-20">
-          <motion.h4
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-gold uppercase tracking-widest text-sm font-semibold mb-4"
+            className="inline-flex items-center gap-2 text-blue-400 uppercase tracking-widest text-sm font-bold mb-4 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700"
           >
-            By The Numbers
-          </motion.h4>
+            <BarChart3 className="w-4 h-4" />
+            <span>Scale, Impact & Performance</span>
+          </motion.div>
+          
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-4xl md:text-5xl font-medium"
+            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl mx-auto"
           >
-            Scale and Excellence
+            Measurable Scale Across Tangible Assets
           </motion.h2>
 
-          {/* Animated gold underline */}
+          {/* Corporate blue underline */}
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             style={{ originX: 0.5 }}
-            className="mx-auto mt-5 h-px w-24 bg-gold"
+            className="mx-auto mt-6 h-1 w-24 bg-blue-500 rounded-full"
           />
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-16 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{
                 duration: 0.6,
-                delay: index * 0.1,
+                delay: index * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="flex flex-col items-center relative"
+              className="p-8 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg flex flex-col items-center justify-between"
             >
-              {/* Pulsing gold glow behind number */}
-              <motion.div
-                animate={{
-                  opacity: [0.15, 0.4, 0.15],
-                  scale: [0.8, 1.1, 0.8],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  delay: index * 0.4,
-                  ease: "easeInOut",
-                }}
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-16 rounded-full"
-                style={{
-                  background:
-                    "radial-gradient(circle, rgba(184,148,82,0.5) 0%, transparent 70%)",
-                  filter: "blur(12px)",
-                }}
-              />
-
-              <h3 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 relative z-10">
-                <Counter
-                  from={0}
-                  to={stat.value}
-                  suffix={stat.suffix}
-                  duration={1.8}
-                />
+              <h3 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 tracking-tight">
+                <span className="text-blue-400">
+                  <Counter
+                    from={0}
+                    to={stat.value}
+                    suffix={stat.suffix}
+                    duration={1.8}
+                  />
+                </span>
               </h3>
-              <p className="text-gold uppercase tracking-widest text-xs md:text-sm font-medium max-w-[150px] leading-relaxed">
-                {stat.label}
-              </p>
-
-              {/* Bottom accent line */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 + 0.5 }}
-                style={{ originX: 0.5 }}
-                className="mt-4 h-px w-8 bg-gold/40"
-              />
+              <div>
+                <p className="text-white text-base md:text-lg font-semibold tracking-wide mb-1">
+                  {stat.label}
+                </p>
+                <p className="text-slate-400 text-xs md:text-sm font-normal">
+                  {stat.sub}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>

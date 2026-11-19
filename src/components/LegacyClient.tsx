@@ -1,101 +1,104 @@
 "use client";
 
-import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { Compass, ArrowRight } from "lucide-react";
 
 const timelineEvents = [
   {
     year: "1960s",
-    description: "Mining operations begin in Keonjhar, Odisha.",
+    description: "Responsible Mining Operations Inception in Keonjhar, Odisha.",
     detail:
-      "The founding chapter of Jyoti Infrastructure. Iron ore and manganese extraction began in the mineral-rich hills of Keonjhar, laying the bedrock of what would become a diversified conglomerate.",
-    image: "/images/hero_mining.png",
+      "The founding cornerstone of Jyoti Infrastructure. Iron ore and manganese extraction commenced in the mineral-rich hills of Keonjhar, setting high standards for safety, continuous land reclamation, and localized employment.",
+    image: "/images/realistic/hero_mining.jpg",
     yearNum: 1960,
+    tag: "Natural Resources",
   },
   {
     year: "1990s",
-    description: "Expansion into media, advertising and automobile businesses.",
+    description: "Strategic Diversification into Regional Media, Logistics & Automobiles.",
     detail:
-      "Diversification was the keyword of the decade. The group ventured beyond mining, recognising the economic potential in media, advertising, and the burgeoning automobile sector.",
-    image: "/images/hero_automobile.png",
+      "Recognizing the expanding economic frontier, the group diversified into commercial mobility, advertising, and state-wide infrastructure logistics.",
+    image: "/images/realistic/hero_automobile.jpg",
     yearNum: 1990,
+    tag: "Diversification",
   },
   {
     year: "1996",
-    description: "Jyote Motors established as a TVS dealer.",
+    description: "Jyote Motors Established as TVS Dealership.",
     detail:
-      "Jyote Motors was incorporated, marking the group's formal entry into the two-wheeler segment as an authorised TVS dealership – a relationship that continues to this day.",
-    image: "/images/hero_automobile.png",
+      "Marked the group's formal foray into the two-wheeler retail and service ecosystem, initiating a long-term partnership with TVS Motors that continues to thrive today.",
+    image: "/images/realistic/hero_automobile.jpg",
     yearNum: 1996,
-  },
-  {
-    year: "2000",
-    description: "Expansion into General Motors dealership.",
-    detail:
-      "The automobile portfolio grew with the addition of a General Motors franchise, broadening the range of vehicles offered to consumers across Odisha.",
-    image: "/images/hero_automobile.png",
-    yearNum: 2000,
+    tag: "Automotive",
   },
   {
     year: "2001",
-    description: "Maruti Suzuki dealership established.",
+    description: "Maruti Suzuki Dealership Landmark Partnership.",
     detail:
-      "Partnering with India's largest car manufacturer, the group opened its Maruti Suzuki showroom, cementing its position as a leading multi-brand automotive retailer in the region.",
-    image: "/images/hero_automobile.png",
+      "Partnering with India's passenger vehicle market leader, Jyote Motors launched world-class showrooms and certified service workshops, growing into Odisha's largest automotive retailer.",
+    image: "/images/realistic/hero_automobile.jpg",
     yearNum: 2001,
+    tag: "Automotive Network",
   },
   {
     year: "2008",
-    description: "Jyoti Infrastructure Private Limited established.",
+    description: "Jyoti Infrastructure Private Limited (JIPL) Formally Incorporated.",
     detail:
-      "The holding company was formally incorporated, providing a unified corporate structure for the group's growing portfolio of businesses and strategic investments.",
-    image: "/images/hero_mining.png",
+      "The corporate flagship holding company was established to unify operations, institutionalize governance, and drive strategic tangible asset creation across India.",
+    image: "/images/realistic/hero_corporate.jpg",
     yearNum: 2008,
+    tag: "Holding Flagship",
   },
   {
     year: "2013",
-    description: "Audi Bhubaneswar launched.",
+    description: "Audi Bhubaneswar & Luxury Mobility Flagship.",
     detail:
-      "The launch of Audi Bhubaneswar signalled the group's ambition in the premium segment, bringing German engineering excellence to the state capital for the first time.",
-    image: "/images/hero_automobile.png",
+      "Brought German automotive engineering excellence to Odisha, pioneering the state's luxury automotive and high-voltage performance segment.",
+    image: "/images/realistic/hero_automobile.jpg",
     yearNum: 2013,
+    tag: "Luxury Retail",
   },
   {
     year: "2017",
-    description: "10 MW solar project with SECI.",
+    description: "Clean Energy Transition: 10 MW Solar with SECI.",
     detail:
-      "The group entered the renewable energy sector with a landmark 10 MW solar power project in partnership with the Solar Energy Corporation of India (SECI), committing to a sustainable future.",
-    image: "/images/hero_renewable.png",
+      "The group decisively entered the renewable clean energy sector, executing a landmark 25-year Power Purchase Agreement with the Solar Energy Corporation of India (SECI) for a 10 MW Greenfield Solar Plant at Patnagarh, Bolangir.",
+    image: "/images/realistic/hero_renewable.jpg",
     yearNum: 2017,
+    tag: "Renewable Energy",
   },
   {
-    year: "2020s",
-    description: "Expansion across renewable energy, finance, real estate, aviation and hospitality.",
+    year: "2020",
+    description: "Expansion into 65 MW Wind Energy, Saral Home Finance & Aviation.",
     detail:
-      "A decade of ambitious diversification. Wind energy projects, housing finance, real estate ventures, an aviation division, and hospitality investments transformed the group into a true conglomerate.",
-    image: "/images/hero_renewable.png",
+      "Scaled renewable capacity with a 65 MW multi-state wind energy portfolio (reaching 75 MW total clean energy) and invested in Saral Home Finance to democratize housing credit for lower-middle-income families.",
+    image: "/images/realistic/hero_financial.jpg",
     yearNum: 2020,
+    tag: "ESG & Multi-Sector",
   },
   {
     year: "2024",
-    description: "Taj Puri Resort & Spa begins commercial operations.",
+    description: "Taj Puri Resort & Spa Commences Commercial Operations.",
     detail:
-      "The 90-key Taj Puri Resort & Spa opened its doors, representing the pinnacle of the group's hospitality ambitions. A landmark moment on India's spiritual coastline.",
-    image: "/images/hero_hospitality.png",
+      "The 90-key ultra-luxury beachside landmark on the Bay of Bengal opened in December 2024, developed under Pravat Hospitality and operated by Indian Hotels Company Limited (IHCL, a Tata Enterprise) under strict coastal eco-preservation guidelines.",
+    image: "/images/realistic/hero_hospitality.jpg",
     yearNum: 2024,
+    tag: "Sustainable Luxury",
   },
   {
     year: "Present",
-    description: "Diversified asset portfolio across multiple sectors.",
+    description: "Nationally Recognized Conglomerate with 7 Robust Verticals.",
     detail:
-      "Today, Jyoti Infrastructure Private Limited is a multi-sector conglomerate with a presence in mining, automobiles, renewable energy, finance, real estate, aviation, and hospitality.",
-    image: "/images/hero_renewable.png",
-    yearNum: 2025,
+      "Today, Jyoti Infrastructure commands over 4M+ tonnes annual responsible ore extraction, 75 MW clean power generation, 100k+ automotive clients, and premier tangible assets across India.",
+    image: "/images/realistic/hero_corporate.jpg",
+    yearNum: 2026,
+    tag: "Future Outlook",
   },
 ];
 
-// Animated counter that counts up when in view
 function AnimatedYear({ year, yearNum }: { year: string; yearNum: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -104,10 +107,8 @@ function AnimatedYear({ year, yearNum }: { year: string; yearNum: number }) {
   useEffect(() => {
     if (!isInView) return;
     const isNumeric = /^\d{4}$/.test(year);
-    if (!isNumeric) {
-      setDisplayVal(yearNum);
-      return;
-    }
+    if (!isNumeric) return;
+    
     const start = yearNum - 30;
     const end = yearNum;
     const duration = 800;
@@ -131,12 +132,7 @@ function AnimatedYear({ year, yearNum }: { year: string; yearNum: number }) {
   );
 }
 
-function TimelineItem({
-  item,
-}: {
-  item: (typeof timelineEvents)[0];
-  index: number;
-}) {
+function TimelineItem({ item }: { item: (typeof timelineEvents)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [expanded, setExpanded] = useState(false);
@@ -145,49 +141,52 @@ function TimelineItem({
     <motion.div
       ref={ref}
       className="relative cursor-pointer group"
-      initial={{ opacity: 0, x: -60 }}
-      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -60 }}
-      transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+      initial={{ opacity: 0, x: -50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
       onClick={() => setExpanded((v) => !v)}
     >
-      {/* Gold pulsing dot */}
+      {/* Corporate Blue Dot */}
       <motion.div
-        className="absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-gold rounded-full ring-4 ring-warm-white z-10"
+        className="absolute -left-[41px] md:-left-[73px] top-2 w-4 h-4 bg-blue-600 rounded-full ring-4 ring-slate-100 z-10"
         animate={{
           boxShadow: [
-            "0 0 0 0 rgba(184,148,82,0.5)",
-            "0 0 0 10px rgba(184,148,82,0)",
+            "0 0 0 0 rgba(37,99,235,0.6)",
+            "0 0 0 10px rgba(37,99,235,0)",
           ],
         }}
-        transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
       />
 
       <div
-        className={`rounded-sm border border-primary/10 bg-white/60 backdrop-blur-sm p-6 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/5 ${expanded ? "border-gold/50 shadow-lg shadow-gold/10" : ""}`}
+        className={`rounded-2xl border bg-white p-7 transition-all duration-300 hover:shadow-xl ${
+          expanded ? "border-blue-500 shadow-xl" : "border-slate-200 shadow-sm hover:border-blue-400"
+        }`}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <span className="px-2.5 py-0.5 rounded bg-blue-50 text-blue-600 border border-blue-200 text-xs font-bold uppercase tracking-wider">
+                {item.tag}
+              </span>
+            </div>
             <motion.h3
-              className="font-serif text-3xl md:text-4xl font-semibold text-primary mb-3"
-              initial={{ opacity: 0 }}
-              animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              className="font-serif text-3xl md:text-4xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors"
             >
               <AnimatedYear year={item.year} yearNum={item.yearNum} />
             </motion.h3>
-            <p className="text-charcoal/80 text-lg font-light leading-relaxed">
+            <p className="text-slate-700 text-lg md:text-xl font-normal leading-relaxed">
               {item.description}
             </p>
           </div>
 
-          {/* Expand indicator */}
-          <motion.div
-            className="flex-shrink-0 w-7 h-7 rounded-full border border-gold/40 flex items-center justify-center text-gold text-sm mt-1"
-            animate={{ rotate: expanded ? 45 : 0 }}
-            transition={{ duration: 0.25 }}
+          <div
+            className={`flex-shrink-0 w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 text-sm mt-1 transition-transform duration-300 ${
+              expanded ? "rotate-45 bg-blue-50 text-blue-600 border-blue-300" : "group-hover:border-blue-500"
+            }`}
           >
             +
-          </motion.div>
+          </div>
         </div>
 
         {/* Expanded detail */}
@@ -201,11 +200,11 @@ function TimelineItem({
           transition={{ duration: 0.35, ease: "easeInOut" }}
           className="overflow-hidden"
         >
-          <div className="pt-5 mt-5 border-t border-primary/10 grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-            <p className="text-charcoal/70 font-light leading-relaxed text-base">
+          <div className="pt-6 mt-6 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <p className="text-slate-600 font-normal leading-relaxed text-base md:text-lg">
               {item.detail}
             </p>
-            <div className="relative h-40 rounded-sm overflow-hidden">
+            <div className="relative h-48 rounded-xl overflow-hidden shadow-md">
               <Image
                 src={item.image}
                 alt={`${item.year} era`}
@@ -213,7 +212,7 @@ function TimelineItem({
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-primary/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
             </div>
           </div>
         </motion.div>
@@ -224,80 +223,64 @@ function TimelineItem({
 
 export function LegacyClient() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const springBgY = useSpring(bgY, { stiffness: 100, damping: 30 });
 
   return (
-    <main className="flex-1 bg-warm-white text-charcoal" ref={containerRef}>
+    <main className="flex-1 bg-slate-50 text-slate-900" ref={containerRef}>
       {/* Hero Header */}
-      <div className="pt-24 pb-16 bg-primary text-white text-center relative overflow-hidden">
-        {/* Diagonal stripe background */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(-45deg, #B89452 0px, #B89452 1px, transparent 1px, transparent 20px)",
-          }}
-        />
+      <div className="pt-32 pb-20 bg-[#0A192F] text-white text-center relative overflow-hidden">
+        <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/80 border border-blue-800 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-6 shadow-md">
+            <Compass className="w-4 h-4 text-blue-400" />
+            <span>Over 60 Years of Industrial History</span>
+          </div>
 
-        <motion.div
-          className="container mx-auto px-6 md:px-12 mt-20 relative z-10"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <motion.h1
-            className="font-serif text-5xl md:text-6xl lg:text-7xl font-medium mb-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            Our Legacy
-          </motion.h1>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight">
+            Our Legacy Across Decades
+          </h1>
 
-          {/* Animated gold line separator */}
-          <motion.div
-            className="h-[2px] bg-gold mx-auto mb-6"
-            initial={{ width: 0 }}
-            animate={{ width: "120px" }}
-            transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          />
+          <div className="h-1 bg-blue-500 mx-auto w-24 rounded-full mb-6" />
 
-          <motion.p
-            className="text-xl text-white/80 max-w-2xl mx-auto font-light"
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            From a Single Mine to a Diversified Business Group
-          </motion.p>
-        </motion.div>
+          <p className="text-xl md:text-2xl text-slate-200 font-normal max-w-3xl mx-auto leading-relaxed">
+            From a solitary open-cast mine in Keonjhar to a national diversified group championing clean energy, green mobility, and world-class hospitality.
+          </p>
+        </div>
       </div>
 
       {/* Timeline Section */}
-      <section className="py-24 md:py-32 relative overflow-hidden">
-        {/* Parallax diagonal stripe background */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          style={{ y: springBgY }}
-        >
-          <div
-            className="w-full h-full opacity-[0.03]"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(-45deg, #B89452 0px, #B89452 2px, transparent 2px, transparent 40px)",
-            }}
-          />
-        </motion.div>
+      <section className="py-24 md:py-32">
+        <div className="container mx-auto px-6 md:px-12 max-w-4xl">
+          {/* Vertical line container */}
+          <div className="relative pl-10 md:pl-20 border-l-2 border-blue-500/40 space-y-12">
+            {timelineEvents.map((item, index) => (
+              <TimelineItem key={index} item={item} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <div className="container mx-auto px-6 md:px-12 max-w-3xl relative z-10">
-          <div className="relative border-l border-primary/20 ml-4 md:ml-12 pl-8 md:pl-16">
-            <div className="space-y-10">
-              {timelineEvents.map((item, index) => (
-                <TimelineItem key={index} item={item} index={index} />
-              ))}
-            </div>
+      {/* Bottom CTA */}
+      <section className="py-20 bg-white border-t border-slate-200 text-center">
+        <div className="container mx-auto px-6 md:px-12 max-w-3xl space-y-6">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-slate-900">
+            Continuing the Legacy of Responsible Value Creation
+          </h2>
+          <p className="text-lg md:text-xl text-slate-600 font-normal leading-relaxed">
+            Discover our seven operating businesses and our forward-looking ESG commitments.
+          </p>
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/businesses"
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base rounded shadow-md transition-all flex items-center gap-2"
+            >
+              <span>Explore Businesses</span>
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/sustainability"
+              className="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-base border border-slate-300 rounded transition-all"
+            >
+              <span>Read Sustainability Commitments</span>
+            </Link>
           </div>
         </div>
       </section>

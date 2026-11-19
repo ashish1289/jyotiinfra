@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -8,13 +8,10 @@ import {
   useScroll,
   useTransform,
   useInView,
-  AnimatePresence,
   Variants,
 } from "framer-motion";
-import { businessData } from "@/data/businesses";
-
-/* ─────────────────────────── types ─────────────────────────── */
-type BusinessEntry = (typeof businessData)[keyof typeof businessData];
+import { businessData, BusinessDetail } from "@/data/businesses";
+import { Leaf, ChevronRight } from "lucide-react";
 
 interface KeyFact {
   value: string;
@@ -22,53 +19,53 @@ interface KeyFact {
 }
 
 interface Props {
-  data: BusinessEntry;
+  data: BusinessDetail;
   slug: string;
 }
 
 /* ───────────────────── key-facts lookup ─────────────────────── */
 const keyFactsMap: Record<string, KeyFact[]> = {
   mining: [
-    { value: "4M+", label: "Tonnes / Year" },
-    { value: "1960s", label: "Founded" },
-    { value: "Iron Ore", label: "Primary Ore" },
-    { value: "Manganese", label: "Also Mined" },
+    { value: "4M+", label: "Tonnes / Year Capacity" },
+    { value: "1960s", label: "Heritage Inception" },
+    { value: "Zero Effluent", label: "Discharge Standard" },
+    { value: "Keonjhar", label: "Mining Heartland" },
   ],
   automobile: [
     { value: "5", label: "Leading Brands" },
-    { value: "1996", label: "Year Founded" },
-    { value: "Maruti", label: "Flagship Brand" },
-    { value: "Audi · TVS", label: "Premium Partners" },
+    { value: "1996", label: "Establishment" },
+    { value: "EV Ready", label: "Charging Network" },
+    { value: "100k+", label: "Mobility Clients" },
   ],
   "financial-services": [
-    { value: "NHB", label: "Regulated By" },
-    { value: "Small Ticket", label: "Loan Segment" },
-    { value: "Odisha+", label: "Presence" },
-    { value: "Inclusion", label: "Mission" },
+    { value: "NHB", label: "Statutory Regulator" },
+    { value: "Affordable", label: "Small-Ticket Segment" },
+    { value: "Tier 2 & 3", label: "Regional Footprint" },
+    { value: "Financial", label: "Inclusion Focus" },
   ],
   "real-estate": [
-    { value: "3+", label: "Cities" },
-    { value: "Delhi", label: "Market" },
-    { value: "Commercial", label: "Focus" },
-    { value: "Long-Term", label: "Strategy" },
+    { value: "3+", label: "Strategic Metros" },
+    { value: "Delhi · Odisha", label: "Commercial Hubs" },
+    { value: "IGBC / LEED", label: "Green Guidelines" },
+    { value: "Long-Term", label: "Tangible Strategy" },
   ],
   "renewable-energy": [
-    { value: "10 MW", label: "Solar Capacity" },
+    { value: "10 MW", label: "Solar Capacity (SECI)" },
     { value: "65 MW", label: "Wind Capacity" },
-    { value: "SECI", label: "Partner" },
-    { value: "2017", label: "Year Entered" },
+    { value: "120,000 MT", label: "Annual CO₂ Offset" },
+    { value: "25-Yr PPA", label: "SECI Agreement" },
   ],
   aviation: [
-    { value: "Pan-India", label: "Operations" },
-    { value: "Charter", label: "Service Type" },
-    { value: "Private Fleet", label: "Asset Type" },
-    { value: "Executive", label: "Client Segment" },
+    { value: "Pan-India", label: "Flight Network" },
+    { value: "VIP Charter", label: "On-Demand Flight" },
+    { value: "Executive", label: "Private Fleet" },
+    { value: "DGCA", label: "Safety Standard" },
   ],
   hospitality: [
-    { value: "90", label: "Keys / Rooms" },
-    { value: "Taj Brand", label: "Operator (IHCL)" },
-    { value: "Puri", label: "Odisha" },
-    { value: "Dec 2024", label: "Launch Date" },
+    { value: "90 Keys", label: "Beachside Luxury" },
+    { value: "Taj (IHCL)", label: "Operator Brand" },
+    { value: "Puri Coast", label: "Bay of Bengal" },
+    { value: "Plastic-Free", label: "Eco-Conscious" },
   ],
 };
 
@@ -83,22 +80,20 @@ const relatedMap: Record<string, string[]> = {
   hospitality: ["aviation", "real-estate", "financial-services"],
 };
 
-/* ──────────────── section reveal animation ─────────────────── */
 const cubicEase = [0.22, 1, 0.36, 1] as const;
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 35 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: cubicEase } },
 };
 
-/* ───────────────────── gold bar component ──────────────────── */
-function GoldBar() {
+function BlueBar() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <div ref={ref} className="h-[3px] bg-gold/20 overflow-hidden mt-3 mb-6 w-16">
+    <div ref={ref} className="h-1 bg-slate-200 overflow-hidden mt-3 mb-6 w-20 rounded-full">
       <motion.div
-        className="h-full bg-gold origin-left"
+        className="h-full bg-blue-600 origin-left"
         initial={{ scaleX: 0 }}
         animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 0.7, ease: cubicEase }}
@@ -108,7 +103,6 @@ function GoldBar() {
   );
 }
 
-/* ──────────────── content section component ────────────────── */
 interface SectionProps {
   title: string;
   children: React.ReactNode;
@@ -127,52 +121,17 @@ function ContentSection({ title, children, borderTop, id }: SectionProps) {
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      className={`grid grid-cols-1 md:grid-cols-12 gap-8 ${borderTop ? "pt-16 border-t border-black/10" : ""}`}
+      className={`grid grid-cols-1 md:grid-cols-12 gap-8 ${borderTop ? "pt-16 border-t border-slate-200" : ""}`}
     >
       <div className="md:col-span-4">
-        <h3 className="font-serif text-2xl text-primary">{title}</h3>
-        <GoldBar />
+        <h3 className="font-serif text-2xl md:text-3xl font-bold text-slate-900">{title}</h3>
+        <BlueBar />
       </div>
       <div className="md:col-span-8">{children}</div>
     </motion.div>
   );
 }
 
-/* ──────────────── sticky progress dots ─────────────────────── */
-const SECTIONS = ["overview", "capabilities", "scale", "outlook"];
-const SECTION_LABELS = ["History", "Capabilities", "Scale", "Outlook"];
-
-function ProgressDots({ active }: { active: number }) {
-  return (
-    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col gap-3">
-      {SECTIONS.map((_, i) => (
-        <button
-          key={i}
-          onClick={() => {
-            document.getElementById(SECTIONS[i])?.scrollIntoView({ behavior: "smooth" });
-          }}
-          title={SECTION_LABELS[i]}
-          className="relative group flex items-center justify-end gap-2"
-        >
-          <span className="absolute right-5 text-xs text-primary font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-warm-white/90 px-2 py-0.5 rounded shadow-sm">
-            {SECTION_LABELS[i]}
-          </span>
-          <motion.div
-            animate={{
-              scale: active === i ? 1.4 : 1,
-              backgroundColor: active === i ? "#B89452" : "#071A2B",
-              opacity: active === i ? 1 : 0.35,
-            }}
-            transition={{ duration: 0.3 }}
-            className="w-2.5 h-2.5 rounded-full"
-          />
-        </button>
-      ))}
-    </div>
-  );
-}
-
-/* ──────────────── key facts card ───────────────────────────── */
 function FactCard({ fact }: { fact: KeyFact }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -182,32 +141,32 @@ function FactCard({ fact }: { fact: KeyFact }) {
       variants={fadeUp}
       initial="hidden"
       animate={inView ? "visible" : "hidden"}
-      className="border border-gold/30 bg-white p-6 text-center hover:border-gold/70 transition-colors"
+      className="border border-slate-200 bg-white p-6 rounded-xl text-center hover:border-blue-400 hover:shadow-md transition-all"
     >
-      <div className="font-serif text-3xl font-bold text-gold mb-1">{fact.value}</div>
-      <div className="text-xs uppercase tracking-widest text-primary/60 font-medium">{fact.label}</div>
+      <div className="font-serif text-3xl font-bold text-blue-700 mb-1">{fact.value}</div>
+      <div className="text-xs uppercase tracking-wider text-slate-500 font-semibold">{fact.label}</div>
     </motion.div>
   );
 }
 
-/* ─────────────── related business card ─────────────────────── */
 function RelatedCard({ slug }: { slug: string }) {
-  const d = businessData[slug as keyof typeof businessData];
+  const d = businessData[slug];
   if (!d) return null;
   return (
-    <Link href={`/businesses/${slug}`} className="group block relative overflow-hidden">
-      <div className="relative h-48 w-full">
+    <Link href={`/businesses/${slug}`} className="group block relative overflow-hidden rounded-xl border border-slate-700 shadow-lg">
+      <div className="relative h-56 w-full">
         <Image
           src={d.heroImage}
           alt={d.title}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-primary/60 group-hover:bg-primary/40 transition-colors duration-300" />
-        <div className="absolute inset-0 flex flex-col justify-end p-5">
-          <h4 className="font-serif text-xl text-white">{d.title}</h4>
-          <p className="text-xs text-gold uppercase tracking-widest mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            Explore →
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+        <div className="absolute inset-0 flex flex-col justify-end p-6">
+          <h4 className="font-serif text-xl font-bold text-white group-hover:text-blue-300 transition-colors">{d.title}</h4>
+          <p className="text-xs text-blue-400 uppercase tracking-widest font-semibold mt-2 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Explore Sector</span>
+            <ChevronRight className="w-3.5 h-3.5" />
           </p>
         </div>
       </div>
@@ -215,57 +174,28 @@ function RelatedCard({ slug }: { slug: string }) {
   );
 }
 
-/* ═══════════════════════ MAIN COMPONENT ═══════════════════════ */
 export function BusinessDetailClient({ data, slug }: Props) {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress: heroScroll } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
   });
-  const heroY = useTransform(heroScroll, [0, 1], ["0%", "30%"]);
+  const heroY = useTransform(heroScroll, [0, 1], ["0%", "25%"]);
   const heroOpacity = useTransform(heroScroll, [0, 0.8], [1, 0]);
-
-  /* Active section tracking */
-  const [activeSection, setActiveSection] = useState(0);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = SECTIONS.indexOf(entry.target.id);
-            if (idx !== -1) setActiveSection(idx);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -40% 0px" }
-    );
-    SECTIONS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
 
   const keyFacts = keyFactsMap[slug] ?? [];
   const related = (relatedMap[slug] ?? []).slice(0, 3);
 
-  /* Hero word-by-word reveal */
-  const titleWords = data.title.split(" ");
-  const subtitleWords = data.subtitle.split(" ");
-
   return (
-    <>
-      <ProgressDots active={activeSection} />
-
+    <div className="bg-slate-50 text-slate-900">
       {/* ── Hero ── */}
       <section
         ref={heroRef}
-        className="relative h-[70vh] md:h-[80vh] min-h-[560px] w-full flex items-center justify-center overflow-hidden"
+        className="relative h-[70vh] md:h-[78vh] min-h-[580px] w-full flex items-center justify-center overflow-hidden bg-[#0A192F]"
       >
-        {/* Parallax image */}
         <motion.div
           style={{ y: heroY }}
-          className="absolute inset-0 z-0 scale-110"
+          className="absolute inset-0 z-0 scale-105"
         >
           <Image
             src={data.heroImage}
@@ -274,83 +204,38 @@ export function BusinessDetailClient({ data, slug }: Props) {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-primary/65" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/95 via-[#0A192F]/80 to-[#0F2A4A]/75" />
         </motion.div>
 
-        {/* Hero content */}
         <motion.div
           style={{ opacity: heroOpacity }}
-          className="container mx-auto px-6 md:px-12 relative z-10 text-center text-white pt-20"
+          className="container mx-auto px-6 md:px-12 relative z-10 text-center text-white pt-24"
         >
-          {/* Label */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gold uppercase tracking-widest text-sm font-semibold mb-6"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/80 border border-blue-800 text-blue-300 text-sm font-semibold uppercase tracking-wider mb-6"
           >
-            Our Businesses
-          </motion.p>
+            <span>Strategic Business Vertical</span>
+          </motion.div>
 
-          {/* Title words */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-medium mb-6 overflow-hidden">
-            {titleWords.map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-3">
-                <motion.span
-                  className="inline-block"
-                  initial={{ y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.4 + i * 0.08, ease: cubicEase }}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white max-w-4xl mx-auto leading-tight">
+            {data.title}
           </h1>
 
-          {/* Animated gold line */}
           <div className="flex justify-center mb-6">
             <motion.div
-              className="h-[2px] bg-gold"
+              className="h-1 bg-blue-500 rounded-full"
               initial={{ width: 0 }}
-              animate={{ width: "80px" }}
-              transition={{ duration: 0.8, delay: 0.9, ease: cubicEase }}
+              animate={{ width: "90px" }}
+              transition={{ duration: 0.8, delay: 0.5, ease: cubicEase }}
             />
           </div>
 
-          {/* Subtitle words */}
-          <p className="text-xl md:text-2xl font-light text-white/90 max-w-3xl mx-auto overflow-hidden">
-            {subtitleWords.map((word, i) => (
-              <span key={i} className="inline-block overflow-hidden mr-1.5">
-                <motion.span
-                  className="inline-block"
-                  initial={{ y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.0 + i * 0.04, ease: cubicEase }}
-                >
-                  {word}
-                </motion.span>
-              </span>
-            ))}
+          <p className="text-xl md:text-2xl font-normal text-slate-200 max-w-3xl mx-auto leading-relaxed">
+            {data.subtitle}
           </p>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1 text-white/60"
-        >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 4v12M5 11l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </motion.div>
         </motion.div>
       </section>
 
@@ -360,60 +245,65 @@ export function BusinessDetailClient({ data, slug }: Props) {
           <div className="space-y-16">
 
             {/* History & Overview */}
-            <ContentSection title="History & Overview" id="overview">
-              <p className="text-lg text-charcoal/80 font-light leading-relaxed">
+            <ContentSection title="History & Strategic Roots" id="overview">
+              <p className="text-lg md:text-xl text-slate-700 font-normal leading-relaxed">
                 {data.history}
               </p>
             </ContentSection>
 
             {/* Capabilities */}
-            <ContentSection title="Capabilities" id="capabilities">
-              <p className="text-lg text-charcoal/80 font-light leading-relaxed">
+            <ContentSection title="Operational Capabilities" id="capabilities" borderTop>
+              <p className="text-lg md:text-xl text-slate-700 font-normal leading-relaxed">
                 {data.capabilities}
               </p>
             </ContentSection>
 
             {/* Scale & Presence */}
-            <ContentSection title="Scale & Presence" id="scale">
+            <ContentSection title="Scale & Footprint" id="scale" borderTop>
               <div className="space-y-6">
-                <div>
-                  <h4 className="uppercase tracking-widest text-xs font-bold text-primary mb-2">Scale</h4>
-                  <p className="text-lg text-charcoal/80 font-light leading-relaxed">{data.scale}</p>
+                <div className="p-6 rounded-xl bg-white border border-slate-200 shadow-sm">
+                  <h4 className="uppercase tracking-wider text-xs font-bold text-blue-600 mb-2">Operational Scale</h4>
+                  <p className="text-lg md:text-xl text-slate-800 font-semibold leading-relaxed">{data.scale}</p>
                 </div>
-                <div>
-                  <h4 className="uppercase tracking-widest text-xs font-bold text-primary mb-2">Geographical Presence</h4>
-                  <p className="text-lg text-charcoal/80 font-light leading-relaxed">{data.geographicalPresence}</p>
+                <div className="p-6 rounded-xl bg-white border border-slate-200 shadow-sm">
+                  <h4 className="uppercase tracking-wider text-xs font-bold text-blue-600 mb-2">Geographical Presence</h4>
+                  <p className="text-lg md:text-xl text-slate-800 font-semibold leading-relaxed">{data.geographicalPresence}</p>
                 </div>
               </div>
             </ContentSection>
 
             {/* Key Facts grid */}
             {keyFacts.length > 0 && (
-              <div className="pt-10">
+              <div className="pt-6">
                 <div className="mb-6">
-                  <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-1">At a Glance</p>
-                  <h3 className="font-serif text-2xl text-primary">Key Facts</h3>
-                  <GoldBar />
+                  <p className="text-xs uppercase tracking-widest text-blue-600 font-bold mb-1">Performance Benchmarks</p>
+                  <h3 className="font-serif text-3xl font-bold text-slate-900">Key Facts At a Glance</h3>
+                  <BlueBar />
                 </div>
-                <div className={`grid gap-4 ${keyFacts.length <= 3 ? "grid-cols-" + keyFacts.length : "grid-cols-2 md:grid-cols-4"}`}>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {keyFacts.map((fact, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 30 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-60px" }}
-                      transition={{ duration: 0.5, delay: i * 0.1, ease: cubicEase }}
-                    >
-                      <FactCard fact={fact} />
-                    </motion.div>
+                    <FactCard key={i} fact={fact} />
                   ))}
                 </div>
               </div>
             )}
 
+            {/* Dedicated Sustainability & ESG Section */}
+            <ContentSection title="Sustainability & ESG Impact" id="sustainability" borderTop>
+              <div className="p-8 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 space-y-4">
+                <div className="flex items-center gap-2 text-emerald-600 font-bold text-base uppercase tracking-wider">
+                  <Leaf className="w-5 h-5 text-emerald-600" />
+                  <span>ESG Pillar & Environmental Stewardship</span>
+                </div>
+                <p className="text-lg md:text-xl text-slate-800 font-normal leading-relaxed">
+                  {data.sustainabilityCommitment}
+                </p>
+              </div>
+            </ContentSection>
+
             {/* Future Outlook */}
-            <ContentSection title="Future Outlook" id="outlook" borderTop>
-              <p className="text-lg text-charcoal/80 font-light leading-relaxed">
+            <ContentSection title="Future Vision & Outlook" id="outlook" borderTop>
+              <p className="text-lg md:text-xl text-slate-700 font-normal leading-relaxed">
                 {data.futureOutlook}
               </p>
             </ContentSection>
@@ -424,35 +314,21 @@ export function BusinessDetailClient({ data, slug }: Props) {
 
       {/* ── Related Businesses ── */}
       {related.length > 0 && (
-        <section className="py-20 bg-primary">
+        <section className="py-24 bg-[#0A192F] text-white border-t border-slate-800">
           <div className="container mx-auto px-6 md:px-12 max-w-5xl">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.7 }}
-              className="mb-10"
-            >
-              <p className="text-xs uppercase tracking-widest text-gold font-semibold mb-2">Explore More</p>
-              <h2 className="font-serif text-3xl text-white">Related Businesses</h2>
-              <div className="h-[2px] bg-gold/40 mt-3 w-16" />
-            </motion.div>
-            <div className={`grid gap-6 ${related.length === 1 ? "grid-cols-1" : related.length === 2 ? "grid-cols-2" : "grid-cols-1 md:grid-cols-3"}`}>
-              {related.map((relSlug, i) => (
-                <motion.div
-                  key={relSlug}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.12 }}
-                >
-                  <RelatedCard slug={relSlug} />
-                </motion.div>
+            <div className="mb-12">
+              <p className="text-xs uppercase tracking-widest text-blue-400 font-bold mb-2">Diversified Conglomerate</p>
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-white">Explore Complementary Sectors</h2>
+              <div className="h-1 bg-blue-500 mt-4 w-20 rounded-full" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {related.map((relSlug) => (
+                <RelatedCard key={relSlug} slug={relSlug} />
               ))}
             </div>
           </div>
         </section>
       )}
-    </>
+    </div>
   );
 }

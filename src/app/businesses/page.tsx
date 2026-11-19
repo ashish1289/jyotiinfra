@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function BusinessesPage() {
   return (
-    <main className="flex-1 bg-slate-50 text-slate-900">
+    <div className="flex-1 bg-slate-50 text-slate-900">
       <div className="relative min-h-[48vh] md:min-h-[55vh] flex items-center justify-center bg-[#0A192F] text-white text-center pt-32 pb-16 overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-950/80 border border-blue-800 text-blue-300 text-sm font-semibold tracking-wider uppercase mb-6 shadow-md">
@@ -28,6 +28,6 @@ export default function BusinessesPage() {
         </div>
       </div>
       <BusinessPortfolio />
-    </main>
+    </div>
   );
 }

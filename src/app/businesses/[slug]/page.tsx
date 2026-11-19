@@ -32,8 +32,8 @@ export default async function BusinessPage({ params }: Props) {
   }
 
   return (
-    <main className="flex-1 bg-warm-white">
+    <div className="flex-1 bg-warm-white">
       <BusinessDetailClient data={data} slug={resolvedParams.slug} />
-    </main>
+    </div>
   );
 }

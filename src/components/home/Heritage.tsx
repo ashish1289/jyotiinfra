@@ -177,7 +177,7 @@ export function Heritage() {
                 className="absolute inset-0 scale-105"
               >
                 <Image
-                  src="/images/realistic/hero_mining.jpg"
+                  src="/images/photos/mining-open-pit.jpg"
                   alt="Modern Sustainable Mining Operations"
                   fill
                   className="object-cover"

@@ -12,7 +12,7 @@ const timelineEvents = [
     description: "Responsible Mining Operations Inception in Keonjhar, Odisha.",
     detail:
       "The founding cornerstone of Jyoti Infrastructure. Iron ore and manganese extraction commenced in the mineral-rich hills of Keonjhar, setting high standards for safety, continuous land reclamation, and localized employment.",
-    image: "/images/realistic/hero_mining.jpg",
+    image: "/images/photos/mining-open-pit.jpg",
     yearNum: 1960,
     tag: "Natural Resources",
   },
@@ -21,7 +21,7 @@ const timelineEvents = [
     description: "Strategic Diversification into Regional Media, Logistics & Automobiles.",
     detail:
       "Recognizing the expanding economic frontier, the group diversified into commercial mobility, advertising, and state-wide infrastructure logistics.",
-    image: "/images/realistic/hero_automobile.jpg",
+    image: "/images/photos/construction-engineers.jpg",
     yearNum: 1990,
     tag: "Diversification",
   },
@@ -30,7 +30,7 @@ const timelineEvents = [
     description: "Jyote Motors Established as TVS Dealership.",
     detail:
       "Marked the group's formal foray into the two-wheeler retail and service ecosystem, initiating a long-term partnership with TVS Motors that continues to thrive today.",
-    image: "/images/realistic/hero_automobile.jpg",
+    image: "/images/photos/driving.jpg",
     yearNum: 1996,
     tag: "Automotive",
   },
@@ -39,7 +39,7 @@ const timelineEvents = [
     description: "Maruti Suzuki Dealership Landmark Partnership.",
     detail:
       "Partnering with India's passenger vehicle market leader, Jyote Motors launched world-class showrooms and certified service workshops, growing into Odisha's largest automotive retailer.",
-    image: "/images/realistic/hero_automobile.jpg",
+    image: "/images/photos/driving.jpg",
     yearNum: 2001,
     tag: "Automotive Network",
   },
@@ -48,7 +48,7 @@ const timelineEvents = [
     description: "Jyoti Infrastructure Private Limited (JIPL) Formally Incorporated.",
     detail:
       "The corporate flagship holding company was established to unify operations, institutionalize governance, and drive strategic tangible asset creation across India.",
-    image: "/images/realistic/hero_corporate.jpg",
+    image: "/images/photos/corporate-towers.jpg",
     yearNum: 2008,
     tag: "Holding Flagship",
   },
@@ -57,7 +57,7 @@ const timelineEvents = [
     description: "Audi Bhubaneswar & Luxury Mobility Flagship.",
     detail:
       "Brought German automotive engineering excellence to Odisha, pioneering the state's luxury automotive and high-voltage performance segment.",
-    image: "/images/realistic/hero_automobile.jpg",
+    image: "/images/photos/ev-charging.jpg",
     yearNum: 2013,
     tag: "Luxury Retail",
   },
@@ -66,7 +66,7 @@ const timelineEvents = [
     description: "Clean Energy Transition: 10 MW Solar with SECI.",
     detail:
       "The group decisively entered the renewable clean energy sector, executing a landmark 25-year Power Purchase Agreement with the Solar Energy Corporation of India (SECI) for a 10 MW Greenfield Solar Plant at Patnagarh, Bolangir.",
-    image: "/images/realistic/hero_renewable.jpg",
+    image: "/images/photos/solar-farm-aerial.jpg",
     yearNum: 2017,
     tag: "Renewable Energy",
   },
@@ -75,7 +75,7 @@ const timelineEvents = [
     description: "Expansion into 65 MW Wind Energy, Saral Home Finance & Aviation.",
     detail:
       "Scaled renewable capacity with a 65 MW multi-state wind energy portfolio (reaching 75 MW total clean energy) and invested in Saral Home Finance to democratize housing credit for lower-middle-income families.",
-    image: "/images/realistic/hero_financial.jpg",
+    image: "/images/photos/wind-farm-green.jpg",
     yearNum: 2020,
     tag: "ESG & Multi-Sector",
   },
@@ -84,7 +84,7 @@ const timelineEvents = [
     description: "Taj Puri Resort & Spa Commences Commercial Operations.",
     detail:
       "The 90-key ultra-luxury beachside landmark on the Bay of Bengal opened in December 2024, developed under Pravat Hospitality and operated by Indian Hotels Company Limited (IHCL, a Tata Enterprise) under strict coastal eco-preservation guidelines.",
-    image: "/images/realistic/hero_hospitality.jpg",
+    image: "/images/photos/resort-pool.jpg",
     yearNum: 2024,
     tag: "Sustainable Luxury",
   },
@@ -93,7 +93,7 @@ const timelineEvents = [
     description: "Nationally Recognized Conglomerate with 7 Robust Verticals.",
     detail:
       "Today, Jyoti Infrastructure commands over 4M+ tonnes annual responsible ore extraction, 75 MW clean power generation, 100k+ automotive clients, and premier tangible assets across India.",
-    image: "/images/realistic/hero_corporate.jpg",
+    image: "/images/photos/seedling-hands.jpg",
     yearNum: 2026,
     tag: "Future Outlook",
   },
@@ -225,7 +225,7 @@ export function LegacyClient() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <main className="flex-1 bg-slate-50 text-slate-900" ref={containerRef}>
+    <div className="flex-1 bg-slate-50 text-slate-900" ref={containerRef}>
       {/* Hero Header */}
       <div className="pt-32 pb-20 bg-[#0A192F] text-white text-center relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
@@ -284,6 +284,6 @@ export function LegacyClient() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

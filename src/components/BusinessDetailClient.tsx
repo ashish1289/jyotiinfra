@@ -204,7 +204,7 @@ export function BusinessDetailClient({ data, slug }: Props) {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/95 via-[#0A192F]/80 to-[#0F2A4A]/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/85 via-[#0A192F]/60 to-[#0A192F]/90" />
         </motion.div>
 
         <motion.div

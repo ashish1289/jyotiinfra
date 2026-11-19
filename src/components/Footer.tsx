@@ -137,14 +137,10 @@ export function Footer() {
 
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-400">
           <p>© 2026 Jyoti Infrastructure Private Limited. All Rights Reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-blue-400 transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-blue-400 transition-colors">
-              Terms & Conditions
-            </Link>
-          </div>
+          <p className="flex items-center gap-2 text-slate-400">
+            <Leaf className="w-4 h-4 text-emerald-400" aria-hidden />
+            <span>Committed to responsible, low-carbon growth.</span>
+          </p>
         </div>
       </div>
     </footer>

@@ -14,7 +14,7 @@ export const businessData: Record<string, BusinessDetail> = {
   mining: {
     title: "Sustainable Mining & Natural Resources",
     subtitle: "Over Six Decades of Responsible Resource Stewardship",
-    heroImage: "/images/realistic/hero_mining.jpg",
+    heroImage: "/images/photos/mining-open-pit.jpg",
     history: "Mining has been the foundational cornerstone of Jyoti Infrastructure's journey since the 1960s, beginning with open-cast extraction in the mineral-rich Keonjhar district of Western Odisha.",
     capabilities: "Precision open-cast extraction, high-efficiency heavy material handling, continuous dust suppression mist cannons, bio-fencing, and progressive topsoil conservation.",
     scale: "Annual extraction capacity exceeding 4 million metric tonnes of high-grade iron ore and manganese.",
@@ -25,7 +25,7 @@ export const businessData: Record<string, BusinessDetail> = {
   automobile: {
     title: "Automobile Retail & Clean Mobility",
     subtitle: "Driving Odisha's Transition to Next-Gen Electric & Hybrid Mobility",
-    heroImage: "/images/realistic/hero_automobile.jpg",
+    heroImage: "/images/photos/ev-charging.jpg",
     history: "Inaugurated in 1996 as a TVS dealership, Jyote Motors has grown into Odisha's most trusted multi-brand automotive powerhouse spanning passenger, commercial, and luxury segments.",
     capabilities: "3S (Sales, Service, Spares) network, certified high-voltage EV service technicians, fast-charging hubs, and customer mobility finance.",
     scale: "Exclusive dealership presence representing global leaders: Maruti Suzuki, Audi, Harley-Davidson, TVS Motors, and Suzuki.",
@@ -36,7 +36,7 @@ export const businessData: Record<string, BusinessDetail> = {
   "financial-services": {
     title: "Financial Services & Inclusion",
     subtitle: "Expanding Access to Affordable & Dignified Green Housing Credit",
-    heroImage: "/images/realistic/hero_financial.jpg",
+    heroImage: "/images/photos/financial-advisory.jpg",
     history: "Strategic investment in Saral Home Finance Limited to democratize homeownership and provide accessible credit to underserved socio-economic segments.",
     capabilities: "Small-ticket housing loans, digital credit appraisal, streamlined doorstep processing, and flexible repayment terms for informal-income earners.",
     scale: "Regulated by the National Housing Bank (NHB), servicing thousands of families with a high-quality loan portfolio.",
@@ -47,7 +47,7 @@ export const businessData: Record<string, BusinessDetail> = {
   "real-estate": {
     title: "Commercial Real Estate & Infrastructure",
     subtitle: "Building Enduring, Energy-Efficient Tangible Assets",
-    heroImage: "/images/realistic/hero_realestate.jpg",
+    heroImage: "/images/photos/city-towers.jpg",
     history: "Strategic development and long-term asset management of premium commercial properties across prime metropolitan and regional growth corridors.",
     capabilities: "Grade-A commercial construction, energy-efficient building envelopes, modern facility management, and high-yield tangible asset creation.",
     scale: "Diverse commercial portfolio spanning Delhi NCR, Pondicherry, and Bhubaneswar.",
@@ -58,7 +58,7 @@ export const businessData: Record<string, BusinessDetail> = {
   "renewable-energy": {
     title: "Renewable Clean Energy",
     subtitle: "75 MW Solar and Wind Portfolio Powering India's Decarbonization",
-    heroImage: "/images/realistic/hero_renewable.jpg",
+    heroImage: "/images/photos/solar-farm-aerial.jpg",
     history: "Ventured decisively into the green energy sector in 2017 through a landmark 25-year Power Purchase Agreement (PPA) with the Solar Energy Corporation of India (SECI).",
     capabilities: "Utility-scale ground-mounted solar plant engineering, high-uptime wind turbine generation, and smart grid synchronization.",
     scale: "10 MW Greenfield Solar Power Project at Patnagarh, Bolangir, alongside a 65 MW Wind Energy Portfolio, offsetting 120,000+ metric tonnes of CO₂ annually.",
@@ -69,7 +69,7 @@ export const businessData: Record<string, BusinessDetail> = {
   aviation: {
     title: "Executive Aviation & Connectivity",
     subtitle: "Connecting Strategic Hubs Through High-Reliability Private Aviation",
-    heroImage: "/images/realistic/hero_aviation.jpg",
+    heroImage: "/images/photos/private-jet-sunset.jpg",
     history: "Strategic entry into executive aviation to overcome regional connectivity gaps and empower industrial leaders with flexible, time-critical travel.",
     capabilities: "Aircraft acquisition, charter fleet management, executive VIP flight operations, and round-the-clock DGCA compliance.",
     scale: "Growing fleet of private aircraft serving corporate, industrial, and high-priority travel requirements across India.",
@@ -80,7 +80,7 @@ export const businessData: Record<string, BusinessDetail> = {
   hospitality: {
     title: "Luxury Sustainable Hospitality",
     subtitle: "Taj Puri Resort & Spa: Coastal Elegance on the Bay of Bengal",
-    heroImage: "/images/realistic/hero_hospitality.jpg",
+    heroImage: "/images/photos/resort-pool.jpg",
     history: "Developed under Pravat Hospitality Private Limited, commencing commercial operations on 24 December 2024 with the iconic Taj brand.",
     capabilities: "Ultra-luxury beachfront resort ownership, operated in partnership with Indian Hotels Company Limited (IHCL, a Tata Enterprise).",
     scale: "90-key luxury oceanfront resort featuring bespoke suites, wellness spa, signature coastal dining, and premier banquet lawns.",

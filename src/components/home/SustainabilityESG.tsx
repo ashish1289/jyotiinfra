@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { Leaf, ShieldCheck, Users, ArrowRight } from "lucide-react";
 
@@ -123,7 +124,15 @@ export function SustainabilityESG() {
           viewport={{ once: true }}
           className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8"
         >
-          <div className="space-y-4 max-w-2xl">
+          <Image
+            src="/images/photos/seedling-hands.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/40" />
+          <div className="relative space-y-4 max-w-2xl">
             <h3 className="font-serif text-2xl md:text-3xl font-bold text-white">
               Explore Our Comprehensive ESG & Sustainability Roadmap
             </h3>
@@ -134,7 +143,7 @@ export function SustainabilityESG() {
 
           <Link
             href="/sustainability"
-            className="shrink-0 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-base rounded shadow-lg transition-all flex items-center gap-3 group"
+            className="relative shrink-0 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-base rounded shadow-lg transition-all flex items-center gap-3 group"
           >
             <span>Read Sustainability Report</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />

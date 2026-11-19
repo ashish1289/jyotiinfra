@@ -32,18 +32,18 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <main className="flex-1 bg-slate-50 text-slate-900">
+    <div className="flex-1 bg-slate-50 text-slate-900">
       {/* ── Hero ── */}
       <section className="relative min-h-[60vh] md:min-h-[70vh] w-full flex items-center justify-center overflow-hidden bg-[#0A192F]">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/realistic/hero_corporate.jpg"
-            alt="Jyoti Infrastructure Corporate Headquarters"
+            src="/images/photos/construction-engineers.jpg"
+            alt="Engineers reviewing progress on an infrastructure construction site"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/95 via-[#0A192F]/85 to-[#0F2A4A]/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/85 via-[#0A192F]/60 to-[#0A192F]/90" />
         </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10 text-center text-white pt-32 pb-20">
@@ -150,6 +150,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

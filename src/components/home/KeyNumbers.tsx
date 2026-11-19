@@ -39,10 +39,14 @@ function Counter({
   }, [isInView, from, to, duration]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="inline-flex items-baseline">
       {prefix}
-      {count}
-      {suffix}
+      <span className="tabular-nums">{count}</span>
+      {suffix && (
+        <span className="ml-0.5 text-[0.5em] font-medium tracking-normal text-blue-300/80">
+          {suffix}
+        </span>
+      )}
     </span>
   );
 }
@@ -100,7 +104,7 @@ export function KeyNumbers() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 text-blue-400 uppercase tracking-widest text-sm font-bold mb-4 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700"
+            className="inline-flex items-center gap-2 text-blue-400 uppercase tracking-[0.2em] text-xs font-semibold mb-6 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700"
           >
             <BarChart3 className="w-4 h-4" />
             <span>Scale, Impact & Performance</span>
@@ -111,7 +115,7 @@ export function KeyNumbers() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white max-w-3xl mx-auto"
+            className="font-serif text-4xl md:text-5xl lg:text-[3.5rem] font-semibold leading-[1.1] text-white max-w-3xl mx-auto"
           >
             Measurable Scale Across Tangible Assets
           </motion.h2>
@@ -142,7 +146,7 @@ export function KeyNumbers() {
               }}
               className="p-8 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg flex flex-col items-center justify-between"
             >
-              <h3 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 tracking-tight">
+              <p className="font-sans text-5xl lg:text-[3.25rem] font-semibold leading-none tracking-[-0.03em] mb-5">
                 <span className="text-blue-400">
                   <Counter
                     from={0}
@@ -151,12 +155,12 @@ export function KeyNumbers() {
                     duration={1.8}
                   />
                 </span>
-              </h3>
+              </p>
               <div>
-                <p className="text-white text-base md:text-lg font-semibold tracking-wide mb-1">
+                <p className="text-white text-base font-medium leading-snug mb-2">
                   {stat.label}
                 </p>
-                <p className="text-slate-400 text-xs md:text-sm font-normal">
+                <p className="text-slate-400 text-xs uppercase tracking-[0.12em] font-medium leading-normal">
                   {stat.sub}
                 </p>
               </div>

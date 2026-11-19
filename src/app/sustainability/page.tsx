@@ -4,8 +4,14 @@ import {
   Leaf, 
   ShieldCheck, 
   Users, 
-  CheckCircle2, 
-  ArrowRight
+  CheckCircle2,
+  ArrowRight,
+  Sun,
+  Wind,
+  Factory,
+  Building2,
+  Recycle,
+  Trees,
 } from "lucide-react";
 
 export const metadata = {
@@ -58,6 +64,84 @@ const esgPillars = [
   }
 ];
 
+const sdgGoals = [
+  {
+    number: 7,
+    icon: Sun,
+    title: "Affordable & Clean Energy",
+    contribution: "10 MW SECI solar at Patnagarh and a 65 MW wind portfolio feeding zero-emission power into the grid.",
+  },
+  {
+    number: 8,
+    icon: Users,
+    title: "Decent Work & Economic Growth",
+    contribution: "Local-first hiring across mining, mobility and hospitality, backed by zero-harm safety standards.",
+  },
+  {
+    number: 9,
+    icon: Factory,
+    title: "Industry, Innovation & Infrastructure",
+    contribution: "Enduring tangible assets and a growing EV charging network across Odisha's dealerships.",
+  },
+  {
+    number: 11,
+    icon: Building2,
+    title: "Sustainable Cities & Communities",
+    contribution: "Affordable housing credit through Saral Home Finance and IGBC/LEED-aligned commercial spaces.",
+  },
+  {
+    number: 12,
+    icon: Recycle,
+    title: "Responsible Consumption & Production",
+    contribution: "Plastic-free resort operations, on-site wastewater recycling and zero-effluent mineral processing.",
+  },
+  {
+    number: 13,
+    icon: Wind,
+    title: "Climate Action",
+    contribution: "Over 120,000 tonnes of CO₂ offset every year by displacing thermal power with renewables.",
+  },
+  {
+    number: 15,
+    icon: Trees,
+    title: "Life on Land",
+    contribution: "Progressive mine reclamation, topsoil banks and green-belt reforestation around Keonjhar.",
+  },
+];
+
+const roadmap = [
+  {
+    phase: "Delivered",
+    title: "Foundations in Place",
+    items: [
+      "75 MW of operating solar and wind capacity",
+      "Zero-effluent discharge and dust suppression across mining",
+      "Plastic-free, water-recycling Taj Puri Resort & Spa",
+      "NHB-regulated, inclusive housing finance",
+    ],
+  },
+  {
+    phase: "Scaling",
+    title: "Expanding Clean Solutions",
+    items: [
+      "Solar-powered EV fast-charging corridors across Odisha",
+      "IGBC/LEED-standard commercial developments",
+      "Green home loans for rooftop solar and rainwater harvesting",
+      "Fuel-efficient fleet upgrades in executive aviation",
+    ],
+  },
+  {
+    phase: "Horizon",
+    title: "Pioneering Net-Zero",
+    items: [
+      "Electrified haulage and solarised processing for carbon-neutral extraction",
+      "Battery energy storage (BESS) alongside new utility solar",
+      "Green hydrogen pilot studies",
+      "Sustainable Aviation Fuel (SAF) partnerships",
+    ],
+  },
+];
+
 const impactStats = [
   { value: "75 MW", label: "Clean Power Capacity", sub: "Solar & Wind Generation" },
   { value: "120,000+", label: "Metric Tonnes CO₂ Offset", sub: "Displacing Thermal Power" },
@@ -67,18 +151,18 @@ const impactStats = [
 
 export default function SustainabilityPage() {
   return (
-    <main className="flex-1 bg-slate-50 text-slate-900">
+    <div className="flex-1 bg-slate-50 text-slate-900">
       {/* ── Flagship Hero ── */}
       <section className="relative min-h-[65vh] md:min-h-[72vh] w-full flex items-center justify-center overflow-hidden bg-[#0A192F]">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/realistic/hero_esg.jpg"
-            alt="Jyoti Infrastructure Sustainability and Clean Energy"
+            src="/images/photos/wind-farm-green.jpg"
+            alt="Wind turbines across green rolling hills"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A192F]/95 via-[#0A192F]/85 to-[#0F2A4A]/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A192F]/85 via-[#0A192F]/60 to-[#0A192F]/90" />
         </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10 text-center text-white pt-32 pb-20">
@@ -175,6 +259,118 @@ export default function SustainabilityPage() {
         </div>
       </section>
 
+      {/* ── UN SDG Alignment ── */}
+      <section className="py-24 md:py-32 bg-white border-t border-slate-200">
+        <div className="container mx-auto px-6 md:px-12 max-w-6xl">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-blue-600 uppercase tracking-widest text-sm font-bold block mb-3">
+              Global Goals, Local Action
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              Contributing to the UN Sustainable Development Goals
+            </h2>
+            <p className="text-lg md:text-xl text-slate-700 font-normal leading-relaxed">
+              Each of our businesses maps to measurable progress on the goals that matter most to India&apos;s
+              low-carbon, inclusive growth.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {sdgGoals.map((goal) => {
+              const Icon = goal.icon;
+              return (
+                <div
+                  key={goal.number}
+                  className="group p-7 rounded-2xl bg-slate-50 border border-slate-200 hover:border-blue-400 hover:bg-white hover:shadow-lg transition-all duration-300 flex flex-col"
+                >
+                  <div className="flex items-center justify-between mb-5">
+                    <span className="font-serif text-4xl font-bold text-blue-700">
+                      {String(goal.number).padStart(2, "0")}
+                    </span>
+                    <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                  </div>
+                  <span className="text-xs uppercase tracking-widest text-slate-500 font-bold mb-1">
+                    SDG {goal.number}
+                  </span>
+                  <h3 className="font-serif text-xl font-bold text-slate-900 mb-3 leading-snug">{goal.title}</h3>
+                  <p className="text-slate-600 text-base leading-relaxed">{goal.contribution}</p>
+                </div>
+              );
+            })}
+
+            {/* Closing tile keeps the 4-column grid balanced */}
+            <div className="p-7 rounded-2xl bg-[#0A192F] border border-slate-800 text-white flex flex-col justify-between">
+              <div>
+                <Leaf className="w-8 h-8 text-emerald-400 mb-5" />
+                <h3 className="font-serif text-2xl font-bold mb-3 leading-snug">Seven Goals. One Integrated Strategy.</h3>
+                <p className="text-slate-300 text-base leading-relaxed">
+                  Sustainability is engineered into every vertical, not managed as a side programme.
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="mt-6 inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold group"
+              >
+                <span>Partner on ESG</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Sustainability Roadmap ── */}
+      <section className="py-24 md:py-32 bg-slate-100 border-t border-slate-200">
+        <div className="container mx-auto px-6 md:px-12 max-w-6xl">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-blue-600 uppercase tracking-widest text-sm font-bold block mb-3">
+              Our Decarbonization Journey
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+              The Road to a Net-Zero Future
+            </h2>
+            <p className="text-lg md:text-xl text-slate-700 font-normal leading-relaxed">
+              From what we have already delivered to the low-carbon technologies we are preparing to deploy next.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
+            {/* Connector line on desktop */}
+            <div className="hidden lg:block absolute top-12 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-blue-600 via-blue-400 to-emerald-400" />
+
+            {roadmap.map((stage, idx) => (
+              <div key={stage.phase} className="relative bg-white rounded-2xl border border-slate-200 shadow-md p-8 pt-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div
+                    className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-serif text-xl font-bold text-white ring-8 ring-slate-100 ${
+                      idx === 2 ? "bg-emerald-600" : "bg-blue-600"
+                    }`}
+                  >
+                    {idx + 1}
+                  </div>
+                  <div>
+                    <span className="text-xs uppercase tracking-widest text-slate-500 font-bold block">{stage.phase}</span>
+                    <h3 className="font-serif text-2xl font-bold text-slate-900">{stage.title}</h3>
+                  </div>
+                </div>
+                <ul className="space-y-3.5">
+                  {stage.items.map((item) => (
+                    <li key={item} className="flex items-start gap-3">
+                      <CheckCircle2
+                        className={`w-5 h-5 shrink-0 mt-1 ${idx === 2 ? "text-emerald-600" : "text-blue-600"}`}
+                      />
+                      <span className="text-base text-slate-700 leading-relaxed">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Realistic Photographic Case Study Section ── */}
       <section className="py-24 bg-[#0A192F] text-white border-t border-slate-800">
         <div className="container mx-auto px-6 md:px-12 max-w-6xl">
@@ -194,7 +390,7 @@ export default function SustainabilityPage() {
             <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-xl group">
               <div className="relative h-72 w-full overflow-hidden">
                 <Image
-                  src="/images/realistic/hero_renewable.jpg"
+                  src="/images/photos/solar-farm-aerial.jpg"
                   alt="Patnagarh 10 MW Solar Plant with SECI"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -214,7 +410,7 @@ export default function SustainabilityPage() {
             <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-xl group">
               <div className="relative h-72 w-full overflow-hidden">
                 <Image
-                  src="/images/realistic/hero_mining.jpg"
+                  src="/images/photos/mining-open-pit.jpg"
                   alt="Responsible Mining Reclamation"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -234,7 +430,7 @@ export default function SustainabilityPage() {
             <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-xl group">
               <div className="relative h-72 w-full overflow-hidden">
                 <Image
-                  src="/images/realistic/hero_hospitality.jpg"
+                  src="/images/photos/coastal-sunset.jpg"
                   alt="Taj Puri Coastal Eco-Conscious Architecture"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -254,7 +450,7 @@ export default function SustainabilityPage() {
             <div className="rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-xl group">
               <div className="relative h-72 w-full overflow-hidden">
                 <Image
-                  src="/images/realistic/hero_community.jpg"
+                  src="/images/photos/community-hands.jpg"
                   alt="Community Welfare & Financial Inclusion"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -300,6 +496,6 @@ export default function SustainabilityPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

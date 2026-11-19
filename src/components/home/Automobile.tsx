@@ -4,14 +4,14 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Car, Zap, ArrowRight } from "lucide-react";
+import { Car, CarFront, Bike, Zap, ArrowRight } from "lucide-react";
 
 const brands = [
-  { name: "Maruti Suzuki", icon: "🚗", ev: "Hybrid & EV Ready" },
-  { name: "Audi",          icon: "🚘", ev: "Luxury e-tron Hub" },
-  { name: "TVS Motors",    icon: "🏍️", ev: "Electric Two-Wheelers" },
-  { name: "Harley-Davidson", icon: "🛣️", ev: "Premium Lifestyle" },
-  { name: "Suzuki",        icon: "🚙", ev: "Global Engineering" },
+  { name: "Maruti Suzuki",   icon: Car,      ev: "Hybrid & EV Ready" },
+  { name: "Audi",            icon: CarFront, ev: "Luxury e-tron Hub" },
+  { name: "TVS Motors",      icon: Bike,     ev: "Electric Two-Wheelers" },
+  { name: "Harley-Davidson", icon: Bike,     ev: "Premium Lifestyle" },
+  { name: "Suzuki",          icon: Car,      ev: "Global Engineering" },
 ];
 
 function CountUp({ to, duration = 1.5 }: { to: number; duration?: number }) {
@@ -126,20 +126,23 @@ export function Automobile() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="grid grid-cols-2 sm:grid-cols-3 gap-3"
             >
-              {brands.map((brand, index) => (
-                <div
-                  key={index}
-                  className="p-3.5 rounded-lg bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/60 transition-all shadow-sm"
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-lg">{brand.icon}</span>
-                    <span className="text-white font-semibold text-sm">{brand.name}</span>
+              {brands.map((brand) => {
+                const Icon = brand.icon;
+                return (
+                  <div
+                    key={brand.name}
+                    className="p-4 rounded-lg bg-slate-900/80 border border-slate-700/80 hover:border-blue-500/60 transition-all shadow-sm"
+                  >
+                    <div className="flex items-center gap-2.5 mb-1.5">
+                      <Icon className="w-5 h-5 text-blue-400 shrink-0" aria-hidden />
+                      <span className="text-white font-semibold text-sm">{brand.name}</span>
+                    </div>
+                    <span className="text-xs text-emerald-400 flex items-center gap-1">
+                      <Zap className="w-3.5 h-3.5" /> {brand.ev}
+                    </span>
                   </div>
-                  <span className="text-xs text-emerald-400 flex items-center gap-1">
-                    <Zap className="w-3 h-3" /> {brand.ev}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </motion.div>
 
             {/* CTA */}
@@ -169,9 +172,10 @@ export function Automobile() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           >
             <Image
-              src="/images/realistic/hero_automobile.jpg"
-              alt="Jyoti Motors Premium Showroom & Fleet"
+              src="/images/photos/ev-charging.jpg"
+              alt="Electric vehicle connected to a fast-charging station"
               fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />

@@ -46,7 +46,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="flex-1 bg-slate-50 text-slate-900">
+    <div className="flex-1 bg-slate-50 text-slate-900">
       {/* ── Hero ── */}
       <div className="pt-32 pb-20 bg-[#0A192F] text-white text-center relative overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-4xl">
@@ -237,6 +237,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

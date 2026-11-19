@@ -90,7 +90,7 @@ export function FeaturedAsset() {
             transition={{ duration: 0.8 }}
           >
             <Image
-              src="/images/realistic/hero_hospitality.jpg"
+              src="/images/photos/resort-pool.jpg"
               alt="Taj Puri Resort & Spa Oceanfront Architecture"
               fill
               className="object-cover hover:scale-105 transition-transform duration-1000"

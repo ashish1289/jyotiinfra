@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/Hero";
+import { SustainabilityTicker } from "@/components/home/SustainabilityTicker";
 import { Heritage } from "@/components/home/Heritage";
 import { KeyNumbers } from "@/components/home/KeyNumbers";
 import { BusinessPortfolio } from "@/components/home/BusinessPortfolio";
@@ -15,6 +16,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <SustainabilityTicker />
       <Heritage />
       <KeyNumbers />
       <BusinessPortfolio />

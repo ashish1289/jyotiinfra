@@ -27,7 +27,7 @@ export function Aviation() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
             >
               <Image
-                src="/images/realistic/hero_aviation.jpg"
+                src="/images/photos/private-jet-sunset.jpg"
                 alt="Executive Private Jet and Aviation Charter"
                 fill
                 className="object-cover"

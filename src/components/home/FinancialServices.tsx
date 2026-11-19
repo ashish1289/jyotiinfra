@@ -96,7 +96,7 @@ export function FinancialServices() {
             className="w-full lg:w-1/2 relative h-[450px] md:h-[550px] rounded-2xl overflow-hidden shadow-2xl border border-slate-200"
           >
             <Image
-              src="/images/realistic/hero_financial.jpg"
+              src="/images/photos/financial-advisory.jpg"
               alt="Financial Inclusion & Strategic Consultation"
               fill
               className="object-cover"

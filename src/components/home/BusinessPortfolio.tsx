@@ -11,7 +11,7 @@ const businesses = [
     title: "Sustainable Mining",
     tag: "Responsible Extraction",
     description: "Decades of open-cast mining in Keonjhar with progressive land reclamation, water recycling, and 4M+ tonnes annual production.",
-    image: "/images/realistic/hero_mining.jpg",
+    image: "/images/photos/mining-open-pit.jpg",
     link: "/businesses/mining",
     icon: Shield,
     esgNote: "Bio-fencing & dust suppression",
@@ -20,7 +20,7 @@ const businesses = [
     title: "Renewable Energy",
     tag: "Clean Energy Transition",
     description: "10 MW SECI Solar project in Patnagarh and a 65 MW Wind portfolio offsetting over 120,000 metric tonnes of CO₂ annually.",
-    image: "/images/realistic/hero_renewable.jpg",
+    image: "/images/photos/wind-sunset.jpg",
     link: "/businesses/renewable-energy",
     icon: Zap,
     esgNote: "75 MW total clean capacity",
@@ -29,7 +29,7 @@ const businesses = [
     title: "Automobile Retail & EV",
     tag: "Next-Gen Mobility",
     description: "Odisha’s premier automotive dealer group representing Maruti Suzuki, Audi, Harley-Davidson, and TVS with growing EV charging setups.",
-    image: "/images/realistic/hero_automobile.jpg",
+    image: "/images/photos/ev-charging.jpg",
     link: "/businesses/automobile",
     icon: Car,
     esgNote: "Active EV transition focus",
@@ -38,7 +38,7 @@ const businesses = [
     title: "Luxury Hospitality",
     tag: "Eco-Conscious Tourism",
     description: "Taj Puri Resort & Spa: 90-key ultra-luxury beachside landmark operated with IHCL, adhering to sustainable coastal conservation standards.",
-    image: "/images/realistic/hero_hospitality.jpg",
+    image: "/images/photos/resort-pool.jpg",
     link: "/businesses/hospitality",
     icon: Hotel,
     esgNote: "Plastic-neutral operations",
@@ -47,7 +47,7 @@ const businesses = [
     title: "Financial Services",
     tag: "Social & Financial Inclusion",
     description: "Saral Home Finance: NHB-regulated small-ticket housing finance empowering lower-middle-income families with dignified shelter credit.",
-    image: "/images/realistic/hero_financial.jpg",
+    image: "/images/photos/financial-advisory.jpg",
     link: "/businesses/financial-services",
     icon: Shield,
     esgNote: "Empowering semi-urban communities",
@@ -56,7 +56,7 @@ const businesses = [
     title: "Commercial Real Estate",
     tag: "Tangible Asset Infrastructure",
     description: "Strategic commercial and mixed-use tangible assets across Delhi, Pondicherry, and Bhubaneswar built to high energy-efficiency standards.",
-    image: "/images/realistic/hero_realestate.jpg",
+    image: "/images/photos/city-towers.jpg",
     link: "/businesses/real-estate",
     icon: Building2,
     esgNote: "Long-term green asset creation",
@@ -65,7 +65,7 @@ const businesses = [
     title: "Private Aviation",
     tag: "Pan-India Connectivity",
     description: "High-standard executive charter flights and aircraft fleet management delivering efficient and dependable pan-India business travel.",
-    image: "/images/realistic/hero_aviation.jpg",
+    image: "/images/photos/private-jet-sunset.jpg",
     link: "/businesses/aviation",
     icon: Plane,
     esgNote: "Optimized route flight efficiency",
@@ -102,6 +102,7 @@ function BusinessCard({
           src={business.image}
           alt={business.title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover transform group-hover:scale-108 transition-transform duration-700 ease-out"
         />
 

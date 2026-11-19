@@ -48,7 +48,7 @@ const boardMembers = [
 
 export default function LeadershipPage() {
   return (
-    <main className="flex-1 bg-slate-50 text-slate-900">
+    <div className="flex-1 bg-slate-50 text-slate-900">
       {/* ── Hero ── */}
       <section className="relative min-h-[50vh] md:min-h-[58vh] w-full flex items-center justify-center overflow-hidden bg-[#0A192F]">
         <div className="container mx-auto px-6 md:px-12 relative z-10 text-center text-white pt-32 pb-16">
@@ -131,6 +131,6 @@ export default function LeadershipPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

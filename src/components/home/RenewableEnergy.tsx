@@ -29,7 +29,7 @@ export function RenewableEnergy() {
             transition={{ duration: 0.8 }}
           >
             <Image
-              src="/images/realistic/hero_renewable.jpg"
+              src="/images/photos/wind-sunset.jpg"
               alt="Jyoti Infrastructure Solar and Wind Energy Installations"
               fill
               className="object-cover"

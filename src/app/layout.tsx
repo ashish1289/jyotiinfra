@@ -21,7 +21,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable} scroll-smooth antialiased h-full`}>
+    // data-scroll-behavior: Next 16 only resets smooth scrolling during route changes when this is set;
+    // without it, navigating to "/" animates from the old scroll position and lands below the hero.
+    <html lang="en" data-scroll-behavior="smooth" className={`${inter.variable} ${playfair.variable} scroll-smooth antialiased h-full`}>
       <body className="min-h-full flex flex-col font-sans bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
         <Header />
         <main className="flex-1 flex flex-col">{children}</main>

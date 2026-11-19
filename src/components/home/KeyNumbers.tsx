@@ -1,8 +1,17 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { BarChart3 } from "lucide-react";
+
+type Stat = {
+  value: number;
+  suffix?: string;
+  label: string;
+  sub: string;
+  /** Years count up from a nearby decade instead of from 0, and keep their suffix full-size ("1960s"). */
+  isYear?: boolean;
+};
 
 function Counter({
   from,
@@ -10,56 +19,62 @@ function Counter({
   duration = 2,
   suffix = "",
   prefix = "",
+  inlineSuffix = false,
 }: {
   from: number;
   to: number;
   duration?: number;
   suffix?: string;
   prefix?: string;
+  inlineSuffix?: boolean;
 }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const reduceMotion = useReducedMotion();
   const [count, setCount] = useState(from);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || reduceMotion) return;
+    let frame = 0;
     let startTimestamp: number | null = null;
     const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min(
-        (timestamp - startTimestamp) / (duration * 1000),
-        1
-      );
+      if (startTimestamp === null) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * (to - from) + from));
-      if (progress < 1) requestAnimationFrame(step);
-      else setCount(to);
+      setCount(Math.round(eased * (to - from) + from));
+      if (progress < 1) frame = requestAnimationFrame(step);
     };
-    requestAnimationFrame(step);
-  }, [isInView, from, to, duration]);
+    frame = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frame);
+  }, [isInView, reduceMotion, from, to, duration]);
 
   return (
-    <span ref={ref} className="inline-flex items-baseline">
-      {prefix}
-      <span className="tabular-nums">{count}</span>
-      {suffix && (
-        <span className="ml-0.5 text-[0.5em] font-medium tracking-normal text-blue-300/80">
-          {suffix}
-        </span>
-      )}
+    <span ref={ref} className="inline-flex items-baseline" aria-label={`${prefix}${to}${suffix}`}>
+      <span aria-hidden="true" className="inline-flex items-baseline">
+        {prefix}
+        <span className="tabular-nums">{reduceMotion ? to : count}</span>
+        {suffix &&
+          (inlineSuffix ? (
+            <span>{suffix}</span>
+          ) : (
+            <span className="ml-1 text-[0.45em] font-semibold tracking-normal text-blue-300/90">
+              {suffix}
+            </span>
+          ))}
+      </span>
     </span>
   );
 }
 
-const stats = [
-  { value: 1960, suffix: "s", label: "Mining Legacy Begins", sub: "Western Odisha" },
+const stats: Stat[] = [
+  { value: 1960, suffix: "s", label: "Mining Legacy Begins", sub: "Western Odisha", isYear: true },
   { value: 4, suffix: "M+", label: "Tonnes Annual Ore Capacity", sub: "Environmentally Certified" },
   { value: 75, suffix: " MW", label: "Clean Power Portfolio", sub: "10 MW Solar + 65 MW Wind" },
   { value: 120, suffix: "k+ MT", label: "Annual CO₂ Offset", sub: "Clean Energy Impact" },
   { value: 90, label: "Luxury Suites & Rooms", sub: "Taj Puri Resort & Spa" },
-  { value: 25, suffix: "+", label: "Years Leadership Tenor", sub: "Proven Governance" },
+  { value: 25, suffix: "+", label: "Years of Leadership Tenure", sub: "Proven Governance" },
   { value: 5, suffix: "+", label: "Global Automobile Brands", sub: "Odisha Mobility Hub" },
-  { value: 2008, label: "JIPL Inception", sub: "Asset Creation Engine" },
+  { value: 2008, label: "JIPL Inception", sub: "Asset Creation Engine", isYear: true },
 ];
 
 export function KeyNumbers() {
@@ -135,7 +150,7 @@ export function KeyNumbers() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           {stats.map((stat, index) => (
             <motion.div
-              key={index}
+              key={stat.label}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -149,9 +164,10 @@ export function KeyNumbers() {
               <p className="font-sans text-5xl lg:text-[3.25rem] font-semibold leading-none tracking-[-0.03em] mb-5">
                 <span className="text-blue-400">
                   <Counter
-                    from={0}
+                    from={stat.isYear ? stat.value - 40 : 0}
                     to={stat.value}
                     suffix={stat.suffix}
+                    inlineSuffix={stat.isYear}
                     duration={1.8}
                   />
                 </span>

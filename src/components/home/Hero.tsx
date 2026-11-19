@@ -110,11 +110,11 @@ export function Hero() {
             <span>Sustainable Growth · Since the 1960s</span>
           </motion.div>
 
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-[5.25rem] font-bold tracking-tight leading-[1.05] mb-8">
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-bold tracking-tight leading-[1.1] mb-7">
             {["Building Businesses.", "Creating Assets."].map((line, i) => (
               <span key={line} className="block overflow-hidden pb-1">
                 <motion.span
-                  className={`block ${i === 1 ? "text-slate-200" : ""}`}
+                  className={`block ${i === 1 ? "text-slate-300" : "text-white"}`}
                   initial={{ y: "100%" }}
                   animate={{ y: 0 }}
                   transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.15 + i * 0.15 }}
@@ -123,9 +123,9 @@ export function Hero() {
                 </motion.span>
               </span>
             ))}
-            <span className="block overflow-hidden pb-2">
+            <span className="block overflow-hidden pb-2 mt-1">
               <motion.span
-                className="block italic font-normal bg-gradient-to-r from-blue-400 via-sky-300 to-emerald-300 bg-clip-text text-transparent pr-2"
+                className="block text-[0.82em] italic font-medium tracking-normal bg-gradient-to-r from-sky-300 via-teal-200 to-emerald-300 bg-clip-text text-transparent pr-2"
                 initial={{ y: "100%" }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.45 }}
@@ -139,10 +139,12 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-lg md:text-2xl text-slate-200 max-w-2xl mb-10 leading-relaxed"
+            className="relative text-base md:text-lg text-slate-300 max-w-xl mb-10 leading-relaxed font-light border-l-2 border-emerald-400/70 pl-5"
           >
-            A diversified Indian group creating enduring value through responsible mining,
-            renewable energy, clean mobility, inclusive finance and eco-conscious hospitality.
+            A diversified Indian group creating enduring value through{" "}
+            <span className="text-white font-normal">responsible mining</span>,{" "}
+            <span className="text-white font-normal">renewable energy</span>, clean mobility,
+            inclusive finance and eco-conscious hospitality.
           </motion.p>
 
           <motion.div
